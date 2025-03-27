@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amirabolfazle | پروفایل حرفه‌ای</title>
+    <title>Amirabolfazle | Professional Profile</title>
     <link rel="shortcut icon" href="https://github.githubassets.com/favicons/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -22,8 +22,8 @@
         }
 
         @keyframes langSwitch {
-            0% { opacity: 0.5; transform: rotate(0deg) scale(0.9); }
-            100% { opacity: 1; transform: rotate(360deg) scale(1); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         @keyframes contentFade {
@@ -46,12 +46,12 @@
         .lang-switcher {
             position: fixed;
             top: 20px;
-            left: 20px;
+            right: 20px;
             z-index: 1000;
             background: rgba(255,42,42,0.2);
             border: 2px solid var(--red);
-            border-radius: 15px;
-            padding: 10px 15px;
+            border-radius: 25px;
+            padding: 8px 15px;
             cursor: pointer;
             display: flex;
             gap: 10px;
@@ -61,29 +61,28 @@
 
         .lang-switcher:hover {
             background: rgba(255,42,42,0.4);
-            transform: scale(1.05);
         }
 
-        .lang-option {
+        .lang-switcher span {
             display: none;
             font-weight: bold;
+        }
+
+        .lang-switcher span.active {
+            display: block;
             animation: langSwitch 0.6s ease;
         }
 
-        .lang-option.active {
-            display: block;
-        }
-
-        [data-lang]:not([data-lang="fa"]) {
+        [data-lang]:not([data-lang="en"]) {
             display: none;
             animation: contentFade 0.6s ease;
         }
 
-        body:lang(en) [data-lang="en"] {
+        body:lang(fa) [data-lang="fa"] {
             display: block !important;
         }
 
-        body:lang(en) [data-lang="fa"] {
+        body:lang(fa) [data-lang="en"] {
             display: none !important;
         }
 
@@ -116,7 +115,7 @@
             display: grid;
             grid-template-columns: 300px 1fr;
             gap: 2rem;
-            animation: slideIn 0.6s ease-out;
+            animation: contentFade 0.6s ease-out;
         }
 
         .achievements-sidebar {
@@ -277,12 +276,11 @@
 </head>
 <body>
     <div class="lang-switcher" id="langSwitcher">
-        <span class="lang-option active" data-lang="fa">🇮🇷 فارسی</span>
-        <span class="lang-option" data-lang="en">🇺🇸 English</span>
+        <span class="active" data-lang="en">🇺🇸 English</span>
+        <span data-lang="fa">🇮🇷 فارسی</span>
     </div>
 
-    <div data-lang="fa">
-        <!-- محتوای فارسی -->
+    <div data-lang="en">
         <div class="linux-code-bg">
             #!/bin/bash
             # Deployment Script
@@ -302,7 +300,16 @@
 
         <div class="profile-container">
             <div class="achievements-sidebar">
-                <!-- Achievements Items (Same as before) -->
+                <!-- Achievements Items -->
+                <div class="achievement-item">
+                    <div class="achievement-level">Lv.2</div>
+                    <img src="https://github.githubassets.com/images/modules/profile/achievements/pull-shark-default.png" 
+                         class="achievement-image">
+                    <div class="achievement-info">
+                        <h3 class="achievement-name">Pull Shark</h3>
+                    </div>
+                </div>
+                <!-- More achievements... -->
             </div>
 
             <div class="main-panel">
@@ -318,87 +325,80 @@
                     <div class="stat-item">
                         <i class="fas fa-users"></i>
                         <h3 id="followers"></h3>
-                        <p>دنبال‌کنندگان</p>
+                        <p>Followers</p>
                     </div>
                     <div class="stat-item">
                         <i class="fas fa-star"></i>
                         <h3 id="stars"></h3>
-                        <p>ستاره‌ها</p>
+                        <p>Stars</p>
                     </div>
                     <div class="stat-item">
                         <i class="fas fa-code-branch"></i>
                         <h3 id="forks"></h3>
-                        <p>فورک‌ها</p>
+                        <p>Forks</p>
                     </div>
                 </div>
 
-                <h2><i class="fas fa-code"></i> زبان‌های اصلی</h2>
+                <h2><i class="fas fa-code"></i> Main Languages</h2>
                 <div class="language-grid" id="languages"></div>
 
-                <h2><i class="fas fa-bookmark"></i> پروژه‌های برجسته</h2>
+                <h2><i class="fas fa-bookmark"></i> Featured Projects</h2>
                 <div class="repo-grid" id="repos"></div>
             </div>
         </div>
     </div>
 
-    <div data-lang="en">
-        <!-- English Content -->
+    <div data-lang="fa">
+        <!-- محتوای فارسی -->
         <div class="linux-code-bg">
-            <!-- Same code background -->
+            <!-- همان کد بک‌گراند -->
         </div>
 
         <div class="profile-container">
             <div class="achievements-sidebar">
-                <!-- Achievements Items (Same as before) -->
+                <!-- دستاوردها -->
             </div>
 
             <div class="main-panel">
                 <div class="profile-header">
-                    <img id="avatar-en" class="profile-avatar">
+                    <img id="avatar-fa" class="profile-avatar">
                     <div>
-                        <h1 id="name-en"></h1>
-                        <p id="bio-en"></p>
+                        <h1 id="name-fa"></h1>
+                        <p id="bio-fa"></p>
                     </div>
                 </div>
 
                 <div class="stats-section">
                     <div class="stat-item">
                         <i class="fas fa-users"></i>
-                        <h3 id="followers-en"></h3>
-                        <p>Followers</p>
+                        <h3 id="followers-fa"></h3>
+                        <p>دنبال‌کنندگان</p>
                     </div>
                     <div class="stat-item">
                         <i class="fas fa-star"></i>
-                        <h3 id="stars-en"></h3>
-                        <p>Stars</p>
+                        <h3 id="stars-fa"></h3>
+                        <p>ستاره‌ها</p>
                     </div>
                     <div class="stat-item">
                         <i class="fas fa-code-branch"></i>
-                        <h3 id="forks-en"></h3>
-                        <p>Forks</p>
+                        <h3 id="forks-fa"></h3>
+                        <p>فورک‌ها</p>
                     </div>
                 </div>
 
-                <h2><i class="fas fa-code"></i> Main Languages</h2>
-                <div class="language-grid" id="languages-en"></div>
+                <h2><i class="fas fa-code"></i> زبان‌های اصلی</h2>
+                <div class="language-grid" id="languages-fa"></div>
 
-                <h2><i class="fas fa-bookmark"></i> Featured Projects</h2>
-                <div class="repo-grid" id="repos-en"></div>
+                <h2><i class="fas fa-bookmark"></i> پروژه‌های برجسته</h2>
+                <div class="repo-grid" id="repos-fa"></div>
             </div>
         </div>
     </div>
 
     <script>
-        const username = 'amirabolfazle';
-        const GITHUB_TOKEN = 'ghp_your_token_here'; // Add your token
-        const headers = { 
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json'
-        };
-
         // Language System
         const langSwitcher = document.getElementById('langSwitcher');
-        let currentLang = 'fa';
+        let currentLang = 'en';
 
         function switchLanguage(lang) {
             document.body.style.animation = 'langSwitch 0.6s ease';
@@ -406,30 +406,32 @@
                 document.documentElement.lang = lang;
                 document.body.dir = lang === 'fa' ? 'rtl' : 'ltr';
                 currentLang = lang;
-                document.querySelectorAll('.lang-option').forEach(opt => {
-                    opt.classList.remove('active');
-                    if(opt.dataset.lang === lang) opt.classList.add('active');
+                document.querySelectorAll('.lang-switcher span').forEach(span => {
+                    span.classList.remove('active');
+                    if(span.dataset.lang === lang) span.classList.add('active');
                 });
             }, 300);
         }
 
         langSwitcher.addEventListener('click', () => {
-            switchLanguage(currentLang === 'fa' ? 'en' : 'fa');
+            switchLanguage(currentLang === 'en' ? 'fa' : 'en');
         });
 
-        // GitHub Data Fetching
+        // GitHub Integration
+        const username = 'amirabolfazle';
+        
         async function fetchGitHubData() {
             try {
                 const [userRes, reposRes] = await Promise.all([
-                    fetch(`https://api.github.com/users/${username}`, { headers }),
-                    fetch(`https://api.github.com/users/${username}/repos`, { headers })
+                    fetch(`https://api.github.com/users/${username}`),
+                    fetch(`https://api.github.com/users/${username}/repos`)
                 ]);
 
                 const user = await userRes.json();
                 const repos = await reposRes.json();
 
                 // Update both language versions
-                ['', '-en'].forEach(suffix => {
+                ['', '-fa'].forEach(suffix => {
                     document.getElementById(`avatar${suffix}`).src = user.avatar_url;
                     document.getElementById(`name${suffix}`).textContent = user.name || username;
                     document.getElementById(`bio${suffix}`).textContent = user.bio || '';
@@ -438,10 +440,10 @@
                     document.getElementById(`forks${suffix}`).textContent = repos.reduce((acc, repo) => acc + repo.forks_count, 0);
                 });
 
-                // Languages Processing
+                // Process Languages
                 const languages = {};
                 const langPromises = repos.map(async repo => {
-                    const langRes = await fetch(repo.languages_url, { headers });
+                    const langRes = await fetch(repo.languages_url);
                     const repoLangs = await langRes.json();
                     Object.keys(repoLangs).forEach(lang => {
                         languages[lang] = (languages[lang] || 0) + 1;
@@ -450,8 +452,8 @@
 
                 await Promise.all(langPromises);
 
-                // Update languages for both versions
-                ['', '-en'].forEach(suffix => {
+                // Update languages
+                ['', '-fa'].forEach(suffix => {
                     const langGrid = document.getElementById(`languages${suffix}`);
                     langGrid.innerHTML = '';
                     Object.entries(languages)
@@ -468,8 +470,8 @@
                         });
                 });
 
-                // Update repos for both versions
-                ['', '-en'].forEach(suffix => {
+                // Update Repositories
+                ['', '-fa'].forEach(suffix => {
                     const reposContainer = document.getElementById(`repos${suffix}`);
                     reposContainer.innerHTML = '';
                     repos.sort((a, b) => b.stargazers_count - a.stargazers_count)
@@ -495,7 +497,7 @@
 
             } catch (err) {
                 console.error('Error:', err);
-                alert(currentLang === 'fa' ? 'خطا در دریافت اطلاعات!' : 'Error fetching data!');
+                alert(currentLang === 'en' ? 'Error fetching data!' : 'خطا در دریافت اطلاعات!');
             }
         }
 
