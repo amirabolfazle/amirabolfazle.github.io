@@ -3,72 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amirabolfazle - GitHub Portfolio</title>
+    <title>Amirabolfazle | Portfolio</title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kan:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --red: #ff0000;
-            --black: #000000;
+            --red: #ff2a2a;
+            --black: #0a0a0a;
+            --shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
         }
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(45deg, var(--black), var(--red));
+            font-family: 'Kan', sans-serif;
+            background: linear-gradient(325deg, var(--black) 60%, var(--red));
             min-height: 100vh;
             color: white;
             overflow-x: hidden;
         }
 
-        .background-text {
-            position: fixed;
-            font-size: 15vw;
-            opacity: 0.1;
-            transform: rotateX(45deg) rotateZ(45deg);
-            pointer-events: none;
-            white-space: nowrap;
-            z-index: -1;
-            animation: float 15s infinite linear;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) rotateX(45deg) rotateZ(45deg); }
-            50% { transform: translateY(-50%) rotateX(45deg) rotateZ(45deg); }
-            100% { transform: translateY(0) rotateX(45deg) rotateZ(45deg); }
-        }
-
-        .container {
+        .centered-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
-        }
-
-        .profile {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 2rem;
-            margin-bottom: 4rem;
         }
 
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid var(--red);
+        /* Shadow Box برای اطلاعات پروفایل */
+        .profile-box {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            width: 80%;
+            position: relative;
             transition: transform 0.3s;
         }
 
-        .repos-grid {
+        .profile-box:hover {
+            transform: translateY(-5px);
+        }
+
+        /* استایل سه بعدی برای متن بکگراند */
+        .3d-background {
+            position: fixed;
+            font-size: 15vw;
+            color: rgba(255, 255, 255, 0.05);
+            transform: perspective(1000px) rotateX(60deg) rotateZ(45deg);
+            pointer-events: none;
+            z-index: -1;
+            animation: float 20s infinite linear;
+            font-family: 'Kan', sans-serif;
+            white-space: nowrap;
+        }
+
+        @keyframes float {
+            0% { transform: perspective(1000px) rotateX(60deg) rotateZ(45deg) translateY(0); }
+            50% { transform: perspective(1000px) rotateX(60deg) rotateZ(45deg) translateY(-40%); }
+            100% { transform: perspective(1000px) rotateX(60deg) rotateZ(45deg) translateY(0); }
+        }
+
+        /* استایل ریپازیتوری‌ها */
+        .repo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            width: 100%;
         }
 
         .repo-card {
-            background: rgba(0, 0, 0, 0.5);
+            background: linear-gradient(145deg, rgba(255, 42, 42, 0.1), rgba(0, 0, 0, 0.3));
+            border: 1px solid var(--red);
             padding: 1.5rem;
-            border-radius: 10px;
+            border-radius: 15px;
             transition: 0.3s;
             position: relative;
             overflow: hidden;
@@ -77,86 +89,166 @@
         .repo-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, var(--red), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 42, 42, 0.2),
+                transparent
+            );
+            transition: 0.5s;
         }
 
-        @keyframes shine {
-            0% { transform: rotate(45deg) translateX(-200%); }
-            100% { transform: rotate(45deg) translateX(200%); }
+        .repo-card:hover::before {
+            left: 100%;
+        }
+
+        /* استایل برای دستاوردها و لوگوها */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            margin: 3rem 0;
+        }
+
+        .achievement-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: 0.5s;
+        }
+
+        .achievement-item:hover {
+            transform: rotateY(15deg) rotateX(15deg);
+        }
+
+        .achievement-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        /* ایموجی‌های سه بعدی ویندوز 11 */
+        .fluent-emoji {
+            font-family: 'Segoe UI Emoji', 'Segoe UI Symbol';
+            font-size: 1.5em;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
-    <div class="background-text">Amirabolfazle</div>
-    
-    <div class="container">
-        <div class="profile" data-aos="fade-right">
-            <img src="" alt="Avatar" class="avatar hvr-bob" id="avatar">
-            <div>
-                <h1 id="name"></h1>
-                <p id="bio"></p>
-                <div id="stats"></div>
+    <div class="3d-background">Amirabolfazle</div>
+
+    <div class="centered-container">
+        <!-- بخش پروفایل -->
+        <div class="profile-box" data-aos="zoom-in">
+            <div class="profile-content">
+                <img src="" alt="Avatar" class="avatar hvr-bob" id="avatar" 
+                     style="width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--red);">
+                <h1 id="name" style="margin: 1rem 0;"></h1>
+                <p id="bio" class="hvr-forward"></p>
+                <div id="stats" class="hvr-glow"></div>
             </div>
         </div>
 
-        <h2 data-aos="fade-up">پروژه‌های منتخب</h2>
-        <div class="repos-grid" id="repos"></div>
+        <!-- بخش ریپازیتوری‌ها -->
+        <h2 data-aos="fade-up">🔼 ریپازیتوری‌های پین شده <span class="fluent-emoji">📌</span></h2>
+        <div class="repo-grid" id="pinned-repos"></div>
+
+        <h2 data-aos="fade-up">🔼 جدیدترین پروژه‌ها <span class="fluent-emoji">🚀</span></h2>
+        <div class="repo-grid" id="recent-repos"></div>
+
+        <!-- بخش دستاوردها -->
+        <h2 data-aos="fade-up">🔼 دستاوردها <span class="fluent-emoji">🏆</span></h2>
+        <div class="achievements-grid" id="achievements"></div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script>
         AOS.init({
             duration: 1000,
-            once: false
+            once: false,
+            mirror: true
         });
 
-        // GitHub API
         const username = 'amirabolfazle';
-        
+        const achievements = [
+            {img: 'certificate1.jpg', title: 'برنده مسابقه کد نویسی'},
+            {img: 'company-logo1.png', title: 'همکاری با مایکروسافت'},
+            // اضافه کردن تصاویر دیگر
+        ];
+
         async function fetchGitHub() {
-            const userRes = await fetch(`https://api.github.com/users/${username}`);
+            const [userRes, reposRes] = await Promise.all([
+                fetch(`https://api.github.com/users/${username}`),
+                fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
+            ]);
+
             const user = await userRes.json();
-            
-            const reposRes = await fetch(`https://api.github.com/users/${username}/repos?sort=updated`);
             const repos = await reposRes.json();
 
-            // Populate profile
-            document.getElementById('avatar').src = user.avatar_url;
-            document.getElementById('name').textContent = user.name || username;
-            document.getElementById('bio').textContent = user.bio || 'GitHub Portfolio';
+            // پروفایل
+            document.getElementById('name').innerHTML = `
+                ${user.name} <span class="fluent-emoji">💻</span>
+            `;
+            document.getElementById('bio').textContent = user.bio;
             document.getElementById('stats').innerHTML = `
-                Followers: ${user.followers} •
-                Following: ${user.following} •
-                Repos: ${user.public_repos}
+                <span class="fluent-emoji">👥</span> دنبال‌کنندگان: ${user.followers} |
+                <span class="fluent-emoji">⭐</span> ستاره‌ها: ${user.public_repos} |
+                <span class="fluent-emoji">📂</span> ریپازیتوری‌ها: ${user.public_repos}
             `;
 
-            // Populate repos (pinned first)
+            // ریپازیتوری‌های پین شده
             const pinnedRepos = repos.filter(r => r.topics.includes('pinned'));
-            const container = document.getElementById('repos');
-            
-            pinnedRepos.slice(0, 6).forEach(repo => {
-                const card = document.createElement('div');
-                card.className = 'repo-card hvr-float';
-                card.innerHTML = `
-                    <h3>${repo.name}</h3>
-                    <p>${repo.description || 'No description'}</p>
-                    <small>${repo.language} • Stars: ${repo.stargazers_count}</small>
+            const pinnedContainer = document.getElementById('pinned-repos');
+            pinnedRepos.slice(0, 4).forEach(repo => createRepoCard(repo, pinnedContainer));
+
+            // جدیدترین ریپازیتوری‌ها
+            const recentRepos = repos.sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at));
+            const recentContainer = document.getElementById('recent-repos');
+            recentRepos.slice(0, 6).forEach(repo => createRepoCard(repo, recentContainer));
+
+            // نمایش دستاوردها
+            const achievementsContainer = document.getElementById('achievements');
+            achievements.forEach(ach => {
+                const div = document.createElement('div');
+                div.className = 'achievement-item hvr-glow';
+                div.innerHTML = `
+                    <img src="${ach.img}" alt="${ach.title}">
+                    <div style="position: absolute; bottom: 0; background: rgba(0,0,0,0.7); width: 100%; padding: 1rem;">
+                        <h4>${ach.title}</h4>
+                    </div>
                 `;
-                container.appendChild(card);
+                achievementsContainer.appendChild(div);
             });
         }
 
-        fetchGitHub();
+        function createRepoCard(repo, container) {
+            const card = document.createElement('div');
+            card.className = 'repo-card hvr-float';
+            card.innerHTML = `
+                <h3><span class="fluent-emoji">📁</span> ${repo.name}</h3>
+                <p>${repo.description || 'بدون توضیحات'}</p>
+                <div style="margin-top: 1rem;">
+                    <span class="fluent-emoji">🌐</span> ${repo.language || 'نا مشخص'} 
+                    <span class="fluent-emoji" style="margin-left: 1rem;">⭐</span> ${repo.stargazers_count}
+                    <a href="${repo.html_url}" target="_blank" 
+                       style="float: left; color: var(--red); text-decoration: none;" 
+                       class="hvr-icon-forward">
+                       مشاهده پروژه <span class="hvr-icon">→</span>
+                    </a>
+                </div>
+            `;
+            container.appendChild(card);
+        }
 
-        // 3D Background Text
-        // (Three.js implementation here...)
+        fetchGitHub();
     </script>
 </body>
 </html>
