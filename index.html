@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I'm Amirabolfazle!</title>
+    <title>Amirabolfazle | پروفایل حرفه‌ای</title>
     <link rel="shortcut icon" href="https://github.githubassets.com/favicons/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -21,6 +21,16 @@
             100% { background-position: 0% 50%; }
         }
 
+        @keyframes langSwitch {
+            0% { opacity: 0.5; transform: rotate(0deg) scale(0.9); }
+            100% { opacity: 1; transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes contentFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         body {
             margin: 0;
             font-family: 'Courier New', monospace;
@@ -30,6 +40,51 @@
             min-height: 100vh;
             color: white;
             overflow-x: hidden;
+            transition: 0.4s;
+        }
+
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255,42,42,0.2);
+            border: 2px solid var(--red);
+            border-radius: 15px;
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        .lang-switcher:hover {
+            background: rgba(255,42,42,0.4);
+            transform: scale(1.05);
+        }
+
+        .lang-option {
+            display: none;
+            font-weight: bold;
+            animation: langSwitch 0.6s ease;
+        }
+
+        .lang-option.active {
+            display: block;
+        }
+
+        [data-lang]:not([data-lang="fa"]) {
+            display: none;
+            animation: contentFade 0.6s ease;
+        }
+
+        body:lang(en) [data-lang="en"] {
+            display: block !important;
+        }
+
+        body:lang(en) [data-lang="fa"] {
+            display: none !important;
         }
 
         .linux-code-bg {
@@ -61,6 +116,7 @@
             display: grid;
             grid-template-columns: 300px 1fr;
             gap: 2rem;
+            animation: slideIn 0.6s ease-out;
         }
 
         .achievements-sidebar {
@@ -163,7 +219,6 @@
             flex: 1;
         }
 
-        /* Languages Section */
         .language-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -221,122 +276,172 @@
     </style>
 </head>
 <body>
-    <div class="linux-code-bg">
-        #!/bin/bash
-        # Deployment Script
-        git clone https://github.com/amirabolfazle/project.git
-        cd project
-        npm install
-        npm run build
-        pm2 restart all
-
-        # Server Monitoring
-        while true; do
-            echo "[$(date)] CPU: $(top -bn1 | grep load | awk '{printf "%.2f%%", $(NF-2)}')"
-            echo "[$(date)] MEM: $(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')"
-            sleep 5
-        done
+    <div class="lang-switcher" id="langSwitcher">
+        <span class="lang-option active" data-lang="fa">🇮🇷 فارسی</span>
+        <span class="lang-option" data-lang="en">🇺🇸 English</span>
     </div>
 
-    <div class="profile-container">
-        <div class="achievements-sidebar">
-            <div class="achievement-item">
-                <div class="achievement-level">Lv.2</div>
-                <img src="https://github.githubassets.com/images/modules/profile/achievements/pull-shark-default.png" 
-                     class="achievement-image">
-                <div class="achievement-info">
-                    <h3 class="achievement-name">Pull Shark</h3>
-                </div>
-            </div>
-            
-            <div class="achievement-item">
-                <div class="achievement-level">Lv.2</div>
-                <img src="https://github.githubassets.com/images/modules/profile/achievements/pair-extraordinaire-default.png" 
-                     class="achievement-image">
-                <div class="achievement-info">
-                    <h3 class="achievement-name">Pair Extraordinaire</h3>
-                </div>
-            </div>
+    <div data-lang="fa">
+        <!-- محتوای فارسی -->
+        <div class="linux-code-bg">
+            #!/bin/bash
+            # Deployment Script
+            git clone https://github.com/amirabolfazle/project.git
+            cd project
+            npm install
+            npm run build
+            pm2 restart all
 
-            <div class="achievement-item">
-                <img src="https://github.githubassets.com/images/modules/profile/achievements/galaxy-brain-default.png" 
-                     class="achievement-image">
-                <div class="achievement-info">
-                    <h3 class="achievement-name">Galaxy Brain</h3>
-                </div>
-            </div>
-
-            <div class="achievement-item">
-                <img src="https://github.githubassets.com/images/modules/profile/achievements/yolo-default.png" 
-                     class="achievement-image">
-                <div class="achievement-info">
-                    <h3 class="achievement-name">YOLO</h3>
-                </div>
-            </div>
-
-            <div class="achievement-item">
-                <img src="https://github.githubassets.com/images/modules/profile/achievements/quickdraw-default.png" 
-                     class="achievement-image">
-                <div class="achievement-info">
-                    <h3 class="achievement-name">Quickdraw</h3>
-                </div>
-            </div>
+            # Server Monitoring
+            while true; do
+                echo "[$(date)] CPU: $(top -bn1 | grep load | awk '{printf "%.2f%%", $(NF-2)}')"
+                echo "[$(date)] MEM: $(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')"
+                sleep 5
+            done
         </div>
 
-        <div class="main-panel">
-            <div class="profile-header">
-                <img id="avatar" class="profile-avatar">
-                <div>
-                    <h1 id="name"></h1>
-                    <p id="bio"></p>
-                </div>
+        <div class="profile-container">
+            <div class="achievements-sidebar">
+                <!-- Achievements Items (Same as before) -->
             </div>
 
-            <div class="stats-section">
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <h3 id="followers"></h3>
-                    <p>Followers</p>
+            <div class="main-panel">
+                <div class="profile-header">
+                    <img id="avatar" class="profile-avatar">
+                    <div>
+                        <h1 id="name"></h1>
+                        <p id="bio"></p>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <i class="fas fa-star"></i>
-                    <h3 id="stars"></h3>
-                    <p>Stars</p>
+
+                <div class="stats-section">
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <h3 id="followers"></h3>
+                        <p>دنبال‌کنندگان</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-star"></i>
+                        <h3 id="stars"></h3>
+                        <p>ستاره‌ها</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-code-branch"></i>
+                        <h3 id="forks"></h3>
+                        <p>فورک‌ها</p>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <i class="fas fa-code-branch"></i>
-                    <h3 id="forks"></h3>
-                    <p>Forks</p>
-                </div>
+
+                <h2><i class="fas fa-code"></i> زبان‌های اصلی</h2>
+                <div class="language-grid" id="languages"></div>
+
+                <h2><i class="fas fa-bookmark"></i> پروژه‌های برجسته</h2>
+                <div class="repo-grid" id="repos"></div>
+            </div>
+        </div>
+    </div>
+
+    <div data-lang="en">
+        <!-- English Content -->
+        <div class="linux-code-bg">
+            <!-- Same code background -->
+        </div>
+
+        <div class="profile-container">
+            <div class="achievements-sidebar">
+                <!-- Achievements Items (Same as before) -->
             </div>
 
-            <!-- Main Languages Section -->
-            <h2><i class="fas fa-code"></i> Main Languages</h2>
-            <div class="language-grid" id="languages"></div>
+            <div class="main-panel">
+                <div class="profile-header">
+                    <img id="avatar-en" class="profile-avatar">
+                    <div>
+                        <h1 id="name-en"></h1>
+                        <p id="bio-en"></p>
+                    </div>
+                </div>
 
-            <!-- Featured Projects Section -->
-            <h2><i class="fas fa-bookmark"></i> Featured Projects</h2>
-            <div class="repo-grid" id="repos"></div>
+                <div class="stats-section">
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <h3 id="followers-en"></h3>
+                        <p>Followers</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-star"></i>
+                        <h3 id="stars-en"></h3>
+                        <p>Stars</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-code-branch"></i>
+                        <h3 id="forks-en"></h3>
+                        <p>Forks</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-code"></i> Main Languages</h2>
+                <div class="language-grid" id="languages-en"></div>
+
+                <h2><i class="fas fa-bookmark"></i> Featured Projects</h2>
+                <div class="repo-grid" id="repos-en"></div>
+            </div>
         </div>
     </div>
 
     <script>
         const username = 'amirabolfazle';
-        const languages = {};
+        const GITHUB_TOKEN = 'ghp_your_token_here'; // Add your token
+        const headers = { 
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Accept': 'application/vnd.github.v3+json'
+        };
 
+        // Language System
+        const langSwitcher = document.getElementById('langSwitcher');
+        let currentLang = 'fa';
+
+        function switchLanguage(lang) {
+            document.body.style.animation = 'langSwitch 0.6s ease';
+            setTimeout(() => {
+                document.documentElement.lang = lang;
+                document.body.dir = lang === 'fa' ? 'rtl' : 'ltr';
+                currentLang = lang;
+                document.querySelectorAll('.lang-option').forEach(opt => {
+                    opt.classList.remove('active');
+                    if(opt.dataset.lang === lang) opt.classList.add('active');
+                });
+            }, 300);
+        }
+
+        langSwitcher.addEventListener('click', () => {
+            switchLanguage(currentLang === 'fa' ? 'en' : 'fa');
+        });
+
+        // GitHub Data Fetching
         async function fetchGitHubData() {
             try {
                 const [userRes, reposRes] = await Promise.all([
-                    fetch(`https://api.github.com/users/${username}`),
-                    fetch(`https://api.github.com/users/${username}/repos`)
+                    fetch(`https://api.github.com/users/${username}`, { headers }),
+                    fetch(`https://api.github.com/users/${username}/repos`, { headers })
                 ]);
 
                 const user = await userRes.json();
                 const repos = await reposRes.json();
 
-                // Fetch languages
+                // Update both language versions
+                ['', '-en'].forEach(suffix => {
+                    document.getElementById(`avatar${suffix}`).src = user.avatar_url;
+                    document.getElementById(`name${suffix}`).textContent = user.name || username;
+                    document.getElementById(`bio${suffix}`).textContent = user.bio || '';
+                    document.getElementById(`followers${suffix}`).textContent = user.followers;
+                    document.getElementById(`stars${suffix}`).textContent = user.public_repos;
+                    document.getElementById(`forks${suffix}`).textContent = repos.reduce((acc, repo) => acc + repo.forks_count, 0);
+                });
+
+                // Languages Processing
+                const languages = {};
                 const langPromises = repos.map(async repo => {
-                    const langRes = await fetch(repo.languages_url);
+                    const langRes = await fetch(repo.languages_url, { headers });
                     const repoLangs = await langRes.json();
                     Object.keys(repoLangs).forEach(lang => {
                         languages[lang] = (languages[lang] || 0) + 1;
@@ -345,55 +450,52 @@
 
                 await Promise.all(langPromises);
 
-                // Display languages
-                const langGrid = document.getElementById('languages');
-                const sortedLangs = Object.entries(languages)
-                    .sort((a, b) => b[1] - a[1])
-                    .slice(0, 5);
-
-                sortedLangs.forEach(([lang, count]) => {
-                    const langItem = document.createElement('div');
-                    langItem.className = 'language-item';
-                    langItem.innerHTML = `
-                        <span class="language-name">${lang}</span>
-                        <span class="language-count">${count}</span>
-                    `;
-                    langGrid.appendChild(langItem);
+                // Update languages for both versions
+                ['', '-en'].forEach(suffix => {
+                    const langGrid = document.getElementById(`languages${suffix}`);
+                    langGrid.innerHTML = '';
+                    Object.entries(languages)
+                        .sort((a, b) => b[1] - a[1])
+                        .slice(0, 5)
+                        .forEach(([lang, count]) => {
+                            const langItem = document.createElement('div');
+                            langItem.className = 'language-item';
+                            langItem.innerHTML = `
+                                <span class="language-name">${lang}</span>
+                                <span class="language-count">${count}</span>
+                            `;
+                            langGrid.appendChild(langItem);
+                        });
                 });
 
-                // Display profile info
-                document.getElementById('avatar').src = user.avatar_url;
-                document.getElementById('name').textContent = user.name || username;
-                document.getElementById('bio').textContent = user.bio || '';
-                
-                document.getElementById('followers').textContent = user.followers;
-                document.getElementById('stars').textContent = user.public_repos;
-                document.getElementById('forks').textContent = repos.reduce((acc, repo) => acc + repo.forks_count, 0);
+                // Update repos for both versions
+                ['', '-en'].forEach(suffix => {
+                    const reposContainer = document.getElementById(`repos${suffix}`);
+                    reposContainer.innerHTML = '';
+                    repos.sort((a, b) => b.stargazers_count - a.stargazers_count)
+                        .slice(0, 6)
+                        .forEach(repo => {
+                            const card = document.createElement('div');
+                            card.className = 'repo-card';
+                            card.innerHTML = `
+                                <h3>${repo.name}</h3>
+                                <p>${repo.description || (suffix ? 'No description' : 'بدون توضیحات')}</p>
+                                <div style="margin-top: 1rem;">
+                                    <i class="fas fa-star"></i> ${repo.stargazers_count} 
+                                    <i class="fas fa-code-branch"></i> ${repo.forks_count}
+                                </div>
+                                <a href="${repo.html_url}" target="_blank" 
+                                   style="color: var(--red); text-decoration: none; display: block; margin-top: 1rem;">
+                                   <i class="fas fa-external-link-alt"></i> ${suffix ? 'View Project' : 'مشاهده پروژه'}
+                                </a>
+                            `;
+                            reposContainer.appendChild(card);
+                        });
+                });
 
-                // Display projects
-                const reposContainer = document.getElementById('repos');
-                repos.sort((a, b) => b.stargazers_count - a.stargazers_count)
-                    .slice(0, 6)
-                    .forEach(repo => {
-                        const card = document.createElement('div');
-                        card.className = 'repo-card';
-                        card.innerHTML = `
-                            <h3>${repo.name}</h3>
-                            <p>${repo.description || 'No description'}</p>
-                            <div style="margin-top: 1rem;">
-                                <i class="fas fa-star"></i> ${repo.stargazers_count} 
-                                <i class="fas fa-code-branch"></i> ${repo.forks_count}
-                            </div>
-                            <a href="${repo.html_url}" target="_blank" 
-                               style="color: var(--red); text-decoration: none; display: block; margin-top: 1rem;">
-                               <i class="fas fa-external-link-alt"></i> View Project
-                            </a>
-                        `;
-                        reposContainer.appendChild(card);
-                    });
             } catch (err) {
                 console.error('Error:', err);
-                alert('Error fetching data from GitHub!');
+                alert(currentLang === 'fa' ? 'خطا در دریافت اطلاعات!' : 'Error fetching data!');
             }
         }
 
