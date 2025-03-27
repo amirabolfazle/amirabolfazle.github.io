@@ -63,7 +63,6 @@
             gap: 2rem;
         }
 
-        /* استایل اصلاح شده برای دستاوردها */
         .achievements-sidebar {
             background: rgba(0,0,0,0.9);
             border: 2px solid var(--red);
@@ -96,9 +95,19 @@
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--red);
+            flex-shrink: 0;
         }
 
-        /* استایل اصلاح شده برای لول‌ها */
+        .achievement-info {
+            flex-grow: 1;
+        }
+
+        .achievement-name {
+            margin: 0;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px rgba(255,42,42,0.5);
+        }
+
         .achievement-level {
             background: var(--bronze);
             color: var(--black);
@@ -116,7 +125,6 @@
             background: var(--gold);
         }
 
-        /* بقیه استایل‌ها */
         .main-panel {
             background: rgba(0,0,0,0.9);
             border: 2px solid var(--red);
@@ -155,6 +163,43 @@
             flex: 1;
         }
 
+        /* استایل بخش زبان‌ها */
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .language-item {
+            background: rgba(255,42,42,0.1);
+            border: 1px solid var(--red);
+            border-radius: 15px;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .language-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255,42,42,0.3);
+        }
+
+        .language-name {
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255,42,42,0.5);
+        }
+
+        .language-count {
+            background: var(--red);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
         .repo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -176,7 +221,6 @@
     </style>
 </head>
 <body>
-    <!-- پس‌زمینه کدهای لینوکس -->
     <div class="linux-code-bg">
         #!/bin/bash
         # Deployment Script
@@ -195,40 +239,51 @@
     </div>
 
     <div class="profile-container">
-        <!-- سایدبار دستاوردها -->
         <div class="achievements-sidebar">
-            <!-- دستاوردهای Level 2 و 3 -->
             <div class="achievement-item">
                 <div class="achievement-level gold">Lv.3</div>
                 <img src="https://github.githubassets.com/images/modules/profile/achievements/pull-shark-default.png" 
-                     alt="Pull Shark" class="achievement-image">
+                     class="achievement-image">
+                <div class="achievement-info">
+                    <h3 class="achievement-name">Pull Shark</h3>
+                </div>
             </div>
 
             <div class="achievement-item">
                 <div class="achievement-level">Lv.2</div>
                 <img src="https://github.githubassets.com/images/modules/profile/achievements/galaxy-brain-default.png" 
-                     alt="Galaxy Brain" class="achievement-image">
+                     class="achievement-image">
+                <div class="achievement-info">
+                    <h3 class="achievement-name">Galaxy Brain</h3>
+                </div>
             </div>
 
             <div class="achievement-item">
                 <div class="achievement-level">Lv.2</div>
                 <img src="https://github.githubassets.com/images/modules/profile/achievements/pair-extraordinaire-default.png" 
-                     alt="Pair Extraordinaire" class="achievement-image">
+                     class="achievement-image">
+                <div class="achievement-info">
+                    <h3 class="achievement-name">Pair Extraordinaire</h3>
+                </div>
             </div>
 
-            <!-- دستاوردهای Level 1 بدون بدج -->
             <div class="achievement-item">
                 <img src="https://github.githubassets.com/images/modules/profile/achievements/yolo-default.png" 
-                     alt="YOLO" class="achievement-image">
+                     class="achievement-image">
+                <div class="achievement-info">
+                    <h3 class="achievement-name">YOLO</h3>
+                </div>
             </div>
 
             <div class="achievement-item">
                 <img src="https://github.githubassets.com/images/modules/profile/achievements/quickdraw-default.png" 
-                     alt="Quickdraw" class="achievement-image">
+                     class="achievement-image">
+                <div class="achievement-info">
+                    <h3 class="achievement-name">Quickdraw</h3>
+                </div>
             </div>
         </div>
 
-        <!-- پنل اصلی -->
         <div class="main-panel">
             <div class="profile-header">
                 <img id="avatar" class="profile-avatar">
@@ -256,57 +311,94 @@
                 </div>
             </div>
 
+            <!-- بخش زبان‌های اصلی (داده‌ها از گیتهاب دریافت می‌شود) -->
+            <h2><i class="fas fa-code"></i> زبان‌های اصلی</h2>
+            <div class="language-grid" id="languages"></div>
+
             <h2><i class="fas fa-bookmark"></i> پروژه‌های برجسته</h2>
             <div class="repo-grid" id="repos"></div>
         </div>
     </div>
 
     <script>
-        const username = 'amirabolfazle';
-        
+        const username = 'amirabolfazle'; // نام کاربری خود را وارد کنید
+        const languages = {}; // شیء برای ذخیره زبان‌ها و تعداد ریپازیتوری‌ها
+
         async function fetchGitHubData() {
-            const [userRes, reposRes] = await Promise.all([
-                fetch(`https://api.github.com/users/${username}`),
-                fetch(`https://api.github.com/users/${username}/repos`)
-            ]);
+            try {
+                // دریافت اطلاعات کاربر و ریپازیتوری‌ها
+                const [userRes, reposRes] = await Promise.all([
+                    fetch(`https://api.github.com/users/${username}`),
+                    fetch(`https://api.github.com/users/${username}/repos`)
+                ]);
 
-            const user = await userRes.json();
-            const repos = await reposRes.json();
+                const user = await userRes.json();
+                const repos = await reposRes.json();
 
-            // پر کردن اطلاعات پروفایل
-            document.getElementById('avatar').src = user.avatar_url;
-            document.getElementById('name').textContent = user.name || username;
-            document.getElementById('bio').textContent = user.bio || '';
-            
-            // آمار
-            document.getElementById('followers').textContent = user.followers;
-            document.getElementById('stars').textContent = user.public_repos;
-            document.getElementById('forks').textContent = repos.reduce((acc, repo) => acc + repo.forks_count, 0);
-
-            // نمایش ریپازیتوری‌ها
-            const reposContainer = document.getElementById('repos');
-            repos.sort((a, b) => b.stargazers_count - a.stargazers_count)
-                .slice(0, 6)
-                .forEach(repo => {
-                    const card = document.createElement('div');
-                    card.className = 'repo-card';
-                    card.innerHTML = `
-                        <h3>${repo.name}</h3>
-                        <p>${repo.description || 'بدون توضیحات'}</p>
-                        <div style="margin-top: 1rem;">
-                            <i class="fas fa-star"></i> ${repo.stargazers_count} 
-                            <i class="fas fa-code-branch"></i> ${repo.forks_count}
-                        </div>
-                        <a href="${repo.html_url}" target="_blank" 
-                           style="color: var(--red); text-decoration: none; display: block; margin-top: 1rem;">
-                           <i class="fas fa-external-link-alt"></i> مشاهده پروژه
-                        </a>
-                    `;
-                    reposContainer.appendChild(card);
+                // دریافت زبان‌های هر ریپازیتوری
+                const langPromises = repos.map(async repo => {
+                    const langRes = await fetch(repo.languages_url);
+                    const repoLangs = await langRes.json();
+                    Object.keys(repoLangs).forEach(lang => {
+                        languages[lang] = (languages[lang] || 0) + 1; // شمارش تعداد ریپازیتوری‌ها
+                    });
                 });
+
+                await Promise.all(langPromises);
+
+                // نمایش زبان‌ها در صفحه
+                const langGrid = document.getElementById('languages');
+                const sortedLangs = Object.entries(languages)
+                    .sort((a, b) => b[1] - a[1]) // مرتب‌سازی نزولی
+                    .slice(0, 5); // نمایش ۵ زبان برتر
+
+                sortedLangs.forEach(([lang, count]) => {
+                    const langItem = document.createElement('div');
+                    langItem.className = 'language-item';
+                    langItem.innerHTML = `
+                        <span class="language-name">${lang}</span>
+                        <span class="language-count">${count}</span>
+                    `;
+                    langGrid.appendChild(langItem);
+                });
+
+                // نمایش اطلاعات کاربر و ریپازیتوری‌ها
+                document.getElementById('avatar').src = user.avatar_url;
+                document.getElementById('name').textContent = user.name || username;
+                document.getElementById('bio').textContent = user.bio || '';
+                
+                document.getElementById('followers').textContent = user.followers;
+                document.getElementById('stars').textContent = user.public_repos;
+                document.getElementById('forks').textContent = repos.reduce((acc, repo) => acc + repo.forks_count, 0);
+
+                // نمایش پروژه‌های برجسته
+                const reposContainer = document.getElementById('repos');
+                repos.sort((a, b) => b.stargazers_count - a.stargazers_count)
+                    .slice(0, 6)
+                    .forEach(repo => {
+                        const card = document.createElement('div');
+                        card.className = 'repo-card';
+                        card.innerHTML = `
+                            <h3>${repo.name}</h3>
+                            <p>${repo.description || 'بدون توضیحات'}</p>
+                            <div style="margin-top: 1rem;">
+                                <i class="fas fa-star"></i> ${repo.stargazers_count} 
+                                <i class="fas fa-code-branch"></i> ${repo.forks_count}
+                            </div>
+                            <a href="${repo.html_url}" target="_blank" 
+                               style="color: var(--red); text-decoration: none; display: block; margin-top: 1rem;">
+                               <i class="fas fa-external-link-alt"></i> مشاهده پروژه
+                            </a>
+                        `;
+                        reposContainer.appendChild(card);
+                    });
+            } catch (err) {
+                console.error('خطا:', err);
+                alert('در دریافت اطلاعات از گیتهاب مشکلی پیش آمد!');
+            }
         }
 
-        fetchGitHubData().catch(err => console.error('خطا:', err));
+        fetchGitHubData();
     </script>
 </body>
 </html>
