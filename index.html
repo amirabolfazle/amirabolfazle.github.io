@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>من امیرابوالفضلم!</title>
+    <title>I'm Amirabolfazle!</title>
     <link rel="shortcut icon" href="https://github.githubassets.com/favicons/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -163,7 +163,7 @@
             flex: 1;
         }
 
-        /* استایل بخش زبان‌ها */
+        /* Languages Section */
         .language-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -296,36 +296,36 @@
                 <div class="stat-item">
                     <i class="fas fa-users"></i>
                     <h3 id="followers"></h3>
-                    <p>دنبال‌کنندگان</p>
+                    <p>Followers</p>
                 </div>
                 <div class="stat-item">
                     <i class="fas fa-star"></i>
                     <h3 id="stars"></h3>
-                    <p>ستاره‌ها</p>
+                    <p>Stars</p>
                 </div>
                 <div class="stat-item">
                     <i class="fas fa-code-branch"></i>
                     <h3 id="forks"></h3>
-                    <p>فورک‌ها</p>
+                    <p>Forks</p>
                 </div>
             </div>
 
-            <!-- بخش زبان‌های اصلی (داده‌ها از گیتهاب دریافت می‌شود) -->
-            <h2><i class="fas fa-code"></i> زبان‌های اصلی</h2>
+            <!-- Main Languages Section -->
+            <h2><i class="fas fa-code"></i> Main Languages</h2>
             <div class="language-grid" id="languages"></div>
 
-            <h2><i class="fas fa-bookmark"></i> پروژه‌های برجسته</h2>
+            <!-- Featured Projects Section -->
+            <h2><i class="fas fa-bookmark"></i> Featured Projects</h2>
             <div class="repo-grid" id="repos"></div>
         </div>
     </div>
 
     <script>
-        const username = 'amirabolfazle'; // نام کاربری خود را وارد کنید
-        const languages = {}; // شیء برای ذخیره زبان‌ها و تعداد ریپازیتوری‌ها
+        const username = 'amirabolfazle';
+        const languages = {};
 
         async function fetchGitHubData() {
             try {
-                // دریافت اطلاعات کاربر و ریپازیتوری‌ها
                 const [userRes, reposRes] = await Promise.all([
                     fetch(`https://api.github.com/users/${username}`),
                     fetch(`https://api.github.com/users/${username}/repos`)
@@ -334,22 +334,22 @@
                 const user = await userRes.json();
                 const repos = await reposRes.json();
 
-                // دریافت زبان‌های هر ریپازیتوری
+                // Fetch languages
                 const langPromises = repos.map(async repo => {
                     const langRes = await fetch(repo.languages_url);
                     const repoLangs = await langRes.json();
                     Object.keys(repoLangs).forEach(lang => {
-                        languages[lang] = (languages[lang] || 0) + 1; // شمارش تعداد ریپازیتوری‌ها
+                        languages[lang] = (languages[lang] || 0) + 1;
                     });
                 });
 
                 await Promise.all(langPromises);
 
-                // نمایش زبان‌ها در صفحه
+                // Display languages
                 const langGrid = document.getElementById('languages');
                 const sortedLangs = Object.entries(languages)
-                    .sort((a, b) => b[1] - a[1]) // مرتب‌سازی نزولی
-                    .slice(0, 5); // نمایش ۵ زبان برتر
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5);
 
                 sortedLangs.forEach(([lang, count]) => {
                     const langItem = document.createElement('div');
@@ -361,7 +361,7 @@
                     langGrid.appendChild(langItem);
                 });
 
-                // نمایش اطلاعات کاربر و ریپازیتوری‌ها
+                // Display profile info
                 document.getElementById('avatar').src = user.avatar_url;
                 document.getElementById('name').textContent = user.name || username;
                 document.getElementById('bio').textContent = user.bio || '';
@@ -370,7 +370,7 @@
                 document.getElementById('stars').textContent = user.public_repos;
                 document.getElementById('forks').textContent = repos.reduce((acc, repo) => acc + repo.forks_count, 0);
 
-                // نمایش پروژه‌های برجسته
+                // Display projects
                 const reposContainer = document.getElementById('repos');
                 repos.sort((a, b) => b.stargazers_count - a.stargazers_count)
                     .slice(0, 6)
@@ -379,21 +379,21 @@
                         card.className = 'repo-card';
                         card.innerHTML = `
                             <h3>${repo.name}</h3>
-                            <p>${repo.description || 'بدون توضیحات'}</p>
+                            <p>${repo.description || 'No description'}</p>
                             <div style="margin-top: 1rem;">
                                 <i class="fas fa-star"></i> ${repo.stargazers_count} 
                                 <i class="fas fa-code-branch"></i> ${repo.forks_count}
                             </div>
                             <a href="${repo.html_url}" target="_blank" 
                                style="color: var(--red); text-decoration: none; display: block; margin-top: 1rem;">
-                               <i class="fas fa-external-link-alt"></i> مشاهده پروژه
+                               <i class="fas fa-external-link-alt"></i> View Project
                             </a>
                         `;
                         reposContainer.appendChild(card);
                     });
             } catch (err) {
-                console.error('خطا:', err);
-                alert('در دریافت اطلاعات از گیتهاب مشکلی پیش آمد!');
+                console.error('Error:', err);
+                alert('Error fetching data from GitHub!');
             }
         }
 
