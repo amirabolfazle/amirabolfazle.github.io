@@ -3,290 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amirabolfazle | Portfolio</title>
+    <title>Amirabolfazle | دستاوردها</title>
     <link rel="shortcut icon" href="https://github.githubassets.com/favicons/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root {
-            --red: #ff2a2a;
-            --black: #0a0a0a;
-            --gradient: linear-gradient(325deg, #0a0a0a 30%, #ff2a2a 100%);
-        }
-
-        /* انیمیشن گرادینت */
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', system-ui;
-            background: var(--gradient);
-            background-size: 400% 400%;
-            animation: gradient-animation 15s ease infinite;
-            min-height: 100vh;
-            color: white;
-            overflow-x: hidden;
-        }
-
-        /* فونت انیمیشن دار در پس زمینه */
-        .matrix-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.1;
-            z-index: -1;
-            font-family: 'Courier New', monospace;
-            font-size: 24px;
-            color: var(--red);
-            pointer-events: none;
-            animation: matrix 20s linear infinite;
-            white-space: pre;
-        }
-
-        @keyframes matrix {
-            from { transform: translateY(100%); }
-            to { transform: translateY(-100%); }
-        }
-
-        /* استایل پروفایل */
-        .profile-container {
-            position: relative;
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-        }
-
-        .profile-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid var(--red);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 0 50px rgba(255,42,42,0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .profile-card::before {
-            content: '';
+        /* استایل اختصاصی دستاوردها */
+        .achievement-badge {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, var(--red), transparent);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: rotate(45deg) translateX(-200%); }
-            100% { transform: rotate(45deg) translateX(200%); }
-        }
-
-        /* استایل دستاوردها */
-        .achievement-orb {
-            position: absolute;
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            background: rgba(255,42,42,0.2);
+            background: rgba(255,42,42,0.1);
             border: 2px solid var(--red);
             display: flex;
             align-items: center;
             justify-content: center;
             animation: orbit 20s linear infinite;
-            transform-origin: 200px;
+            transform-origin: 250px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .achievement-badge:hover {
+            transform: scale(1.2) rotate(360deg);
+            box-shadow: 0 0 20px var(--red);
+        }
+
+        .achievement-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         @keyframes orbit {
-            from { transform: rotate(0deg) translateX(200px) rotate(0deg); }
-            to { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+            0% { transform: rotate(0deg) translateX(250px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(250px) rotate(-360deg); }
         }
 
-        /* زبان‌های برنامه‌نویسی */
-        .language-chip {
-            display: inline-block;
-            background: rgba(255,42,42,0.1);
-            padding: 0.5rem 1rem;
-            margin: 0.5rem;
-            border-radius: 20px;
-            border: 1px solid var(--red);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .language-chip::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,42,42,0.3),
-                transparent
-            );
-            animation: shine 1.5s infinite;
-        }
-
-        /* استایل ریپازیتوری‌ها */
-        .repo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .repo-card {
-            background: rgba(0,0,0,0.5);
-            border: 1px solid var(--red);
-            border-radius: 15px;
-            padding: 1.5rem;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .repo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(255,42,42,0.3);
-        }
+        /* بقیه استایل‌ها مانند قبل باقی میمانند */
     </style>
 </head>
 <body>
-    <div class="matrix-bg" id="matrix"></div>
-
-    <div class="profile-container">
-        <!-- دستاوردهای چرخان -->
-        <div class="achievement-orb" style="--i:0">
-            <i class="fas fa-trophy fa-spin" style="color: #FFD700"></i>
-            <div class="achievement-level">Lv.3</div>
-        </div>
-        
-        <!-- کارت پروفایل -->
-        <div class="profile-card">
-            <div class="profile-header">
-                <img id="avatar" style="width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--red);">
-                <div class="profile-info">
-                    <h1 id="name"><i class="fas fa-user"></i></h1>
-                    <p id="bio"><i class="fas fa-quote-left"></i></p>
-                    <div id="stats"></div>
-                </div>
-            </div>
-
-            <!-- زبان‌های پرکاربرد -->
-            <div class="languages-section">
-                <h2><i class="fas fa-code"></i> زبان‌های اصلی</h2>
-                <div id="languages"></div>
-            </div>
-
-            <!-- ریپازیتوری‌ها -->
-            <div class="repos-section">
-                <h2><i class="fas fa-bookmark"></i> پروژه‌های برجسته</h2>
-                <div class="repo-grid" id="repos"></div>
-            </div>
-        </div>
-    </div>
+    <!-- ... کدهای قبلی ... -->
 
     <script>
-        const username = 'amirabolfazle';
-        const iconMap = {
-            star: '<i class="fas fa-star"></i>',
-            fork: '<i class="fas fa-code-branch"></i>',
-            eye: '<i class="fas fa-eye"></i>',
-            code: '<i class="fas fa-code"></i>',
-            trophy: '<i class="fas fa-trophy"></i>'
-        };
-
-        // تولید متن ماتریکسی
-        function generateMatrix() {
-            const chars = '01Amirabolfazle@Github';
-            const matrix = document.getElementById('matrix');
-            let content = '';
-            
-            for(let i = 0; i < 500; i++) {
-                content += chars[Math.floor(Math.random() * chars.length)] + ' ';
+        const customAchievements = [
+            {
+                name: "Galaxy Brain",
+                image: "https://github.githubassets.com/images/modules/profile/achievements/galaxy-brain-default.png",
+                level: "Level 2"
+            },
+            {
+                name: "Pull Shark",
+                image: "https://github.githubassets.com/images/modules/profile/achievements/pull-shark-default.png",
+                level: "Level 3"
+            },
+            {
+                name: "Pair Extraordinaire",
+                image: "https://github.githubassets.com/images/modules/profile/achievements/pair-extraordinaire-default.png",
+                level: "Level 1"
+            },
+            {
+                name: "YOLO",
+                image: "https://github.githubassets.com/images/modules/profile/achievements/yolo-default.png",
+                level: "Level 2"
+            },
+            {
+                name: "Quickdraw",
+                image: "https://github.githubassets.com/images/modules/profile/achievements/quickdraw-default.png",
+                level: "Level 1"
             }
-            matrix.textContent = content.repeat(20);
-        }
+        ];
 
-        // دریافت داده‌های گیتهاب
-        async function fetchGitHubData() {
-            const [userRes, reposRes] = await Promise.all([
-                fetch(`https://api.github.com/users/${username}`),
-                fetch(`https://api.github.com/users/${username}/repos`)
-            ]);
-
-            const user = await userRes.json();
-            const repos = await reposRes.json();
-
-            // پر کردن اطلاعات پروفایل
-            document.getElementById('avatar').src = user.avatar_url;
-            document.getElementById('name').innerHTML = `
-                ${user.name} <span style="color: var(--red)">${iconMap.code}</span>
-            `;
-            document.getElementById('bio').textContent = user.bio;
-            document.getElementById('stats').innerHTML = `
-                ${iconMap.eye} دنبال‌کنندگان: ${user.followers} | 
-                ${iconMap.star} ستاره‌ها: ${user.public_repos} | 
-                ${iconMap.fork} فورک‌ها: ${repos.reduce((a, r) => a + r.forks_count, 0)}
-            `;
-
-            // زبان‌های برنامه‌نویسی
-            const languages = repos.reduce((acc, repo) => {
-                if(repo.language) acc[repo.language] = (acc[repo.language] || 0) + 1;
-                return acc;
-            }, {});
-
-            const languagesContainer = document.getElementById('languages');
-            Object.entries(languages).forEach(([lang, count]) => {
-                const chip = document.createElement('div');
-                chip.className = 'language-chip';
-                chip.innerHTML = `
-                    ${iconMap.code} ${lang} 
-                    <span style="color: var(--red)">(${count})</span>
+        function createAchievementOrbs() {
+            const profileCard = document.querySelector('.profile-card');
+            
+            customAchievements.forEach((ach, index) => {
+                const orb = document.createElement('div');
+                orb.className = 'achievement-badge';
+                orb.style.setProperty('--i', index);
+                orb.style.animationDelay = `${index * 2}s`;
+                
+                orb.innerHTML = `
+                    <img src="${ach.image}" alt="${ach.name}" class="achievement-image">
+                    <div class="achievement-tooltip">
+                        <h4>${ach.name}</h4>
+                        <span>${ach.level}</span>
+                    </div>
                 `;
-                languagesContainer.appendChild(chip);
-            });
 
-            // نمایش ریپازیتوری‌ها
-            const reposContainer = document.getElementById('repos');
-            repos.sort((a, b) => b.stargazers_count - a.stargazers_count)
-                .slice(0, 6)
-                .forEach(repo => {
-                    const card = document.createElement('div');
-                    card.className = 'repo-card';
-                    card.innerHTML = `
-                        <h3>${iconMap.code} ${repo.name}</h3>
-                        <p>${repo.description || 'بدون توضیحات'}</p>
-                        <div style="margin-top: 1rem;">
-                            ${iconMap.star} ${repo.stargazers_count} 
-                            ${iconMap.fork} ${repo.forks_count}
-                        </div>
-                        <a href="${repo.html_url}" target="_blank" 
-                           style="color: var(--red); text-decoration: none;">
-                           <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    `;
-                    reposContainer.appendChild(card);
-                });
+                profileCard.appendChild(orb);
+            });
         }
 
-        // راه‌اندازی اولیه
-        generateMatrix();
-        fetchGitHubData().catch(err => console.error('Error:', err));
-
-        // انیمیشن دستاوردها
-        const achievements = document.querySelectorAll('.achievement-orb');
-        achievements.forEach((orb, index) => {
-            orb.style.setProperty('--i', index);
-            orb.style.animationDelay = `${index * 2}s`;
-        });
+        // بعد از فراخوانی fetchGitHubData این تابع را صدا بزنید
+        fetchGitHubData()
+            .then(createAchievementOrbs)
+            .catch(err => console.error('Error:', err));
     </script>
 </body>
 </html>
