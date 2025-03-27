@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amirabolfazle | Professional Profile</title>
+    <title>I'm Amirabolfazl!</title>
     <link rel="shortcut icon" href="https://github.githubassets.com/favicons/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -21,69 +21,54 @@
             100% { background-position: 0% 50%; }
         }
 
-        @keyframes langSwitch {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @font-face {
+            font-family: "Shabnam";
+            src: url("https://cdn.fontcdn.ir/Fonts/Shabnam/a074a415cfe0e4f57e2ede996a73d0e509c0ea194c9678c7b87c65fb977907e7.woff2") format("woff2");
+            font-weight: 100;
+            font-style: normal;
         }
 
-        @keyframes contentFade {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @font-face {
+            font-family: "Shabnam";
+            src: url("https://cdn.fontcdn.ir/Fonts/Shabnam/87cf5dde711a284c1e25dd414d51a571b7c9aedd91b2b96f9d679869f5d65162.woff2") format("woff2");
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: "Shabnam";
+            src: url("https://cdn.fontcdn.ir/Fonts/Shabnam/540d3f4e172bd6b5c70dd06bce57e055ce59270e95ea642b414fe0709faaa085.woff2") format("woff2");
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: "Shabnam";
+            src: url("https://cdn.fontcdn.ir/Fonts/Shabnam/fd5931f57e84baad81cc7243cfc1c83e5ac7f5dd17818d917765063544a54441.woff2") format("woff2");
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: "Shabnam";
+            src: url("https://cdn.fontcdn.ir/Fonts/Shabnam/1ff187f5320ec4527ebb6a71831b88289a6cb18ca33ac34476b96960f0af7282.woff2") format("woff2");
+            font-weight: 700;
+            font-style: normal;
         }
 
         body {
             margin: 0;
-            font-family: 'Courier New', monospace;
+            font-family: 'Shabnam', monospace;
             background: var(--gradient);
             background-size: 400% 400%;
             animation: gradient-animation 15s ease infinite;
             min-height: 100vh;
             color: white;
             overflow-x: hidden;
-            transition: 0.4s;
         }
 
-        .lang-switcher {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(255,42,42,0.2);
-            border: 2px solid var(--red);
-            border-radius: 25px;
-            padding: 8px 15px;
-            cursor: pointer;
-            display: flex;
-            gap: 10px;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
-        }
-
-        .lang-switcher:hover {
-            background: rgba(255,42,42,0.4);
-        }
-
-        .lang-switcher span {
-            display: none;
-            font-weight: bold;
-        }
-
-        .lang-switcher span.active {
-            display: block;
-            animation: langSwitch 0.6s ease;
-        }
-
-        [data-lang]:not([data-lang="en"]) {
-            display: none;
-            animation: contentFade 0.6s ease;
-        }
-
-        body:lang(fa) [data-lang="fa"] {
-            display: block !important;
-        }
-
-        body:lang(fa) [data-lang="en"] {
-            display: none !important;
+        .linux-code {
+            font-family: 'Courier New', monospace;
         }
 
         .linux-code-bg {
@@ -115,7 +100,6 @@
             display: grid;
             grid-template-columns: 300px 1fr;
             gap: 2rem;
-            animation: contentFade 0.6s ease-out;
         }
 
         .achievements-sidebar {
@@ -272,154 +256,232 @@
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(255,42,42,0.3);
         }
+
+        /* Language Switcher Styles */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 42, 42, 0.2);
+            border: 2px solid var(--red);
+            border-radius: 50px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Shabnam', sans-serif;
+        }
+
+        .language-switcher:hover {
+            background: rgba(255, 42, 42, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--red);
+        }
+
+        .lang-icon {
+            width: 25px;
+            height: 25px;
+            transition: transform 0.5s ease;
+        }
+
+        @keyframes flip {
+            0% { transform: rotateY(0deg); }
+            50% { transform: rotateY(90deg); }
+            100% { transform: rotateY(0deg); }
+        }
+
+        .lang-flip {
+            animation: flip 0.6s ease;
+        }
     </style>
 </head>
 <body>
-    <div class="lang-switcher" id="langSwitcher">
-        <span class="active" data-lang="en">🇺🇸 English</span>
-        <span data-lang="fa">🇮🇷 فارسی</span>
+    <!-- Language Switcher -->
+    <div class="language-switcher" id="languageSwitcher">
+        <i class="lang-icon fas fa-globe-asia" id="langIcon"></i>
+        <span id="langText">English</span>
     </div>
 
-    <div data-lang="en">
-        <div class="linux-code-bg">
-            #!/bin/bash
-            # Deployment Script
-            git clone https://github.com/amirabolfazle/project.git
-            cd project
-            npm install
-            npm run build
-            pm2 restart all
+    <!-- Background Code -->
+    <div class="linux-code-bg linux-code">
+        #!/bin/bash
+        # Deployment Script
+        git clone https://github.com/amirabolfazle/project.git
+        cd project
+        npm install
+        npm run build
+        pm2 restart all
 
-            # Server Monitoring
-            while true; do
-                echo "[$(date)] CPU: $(top -bn1 | grep load | awk '{printf "%.2f%%", $(NF-2)}')"
-                echo "[$(date)] MEM: $(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')"
-                sleep 5
-            done
-        </div>
-
-        <div class="profile-container">
-            <div class="achievements-sidebar">
-                <!-- Achievements Items -->
-                <div class="achievement-item">
-                    <div class="achievement-level">Lv.2</div>
-                    <img src="https://github.githubassets.com/images/modules/profile/achievements/pull-shark-default.png" 
-                         class="achievement-image">
-                    <div class="achievement-info">
-                        <h3 class="achievement-name">Pull Shark</h3>
-                    </div>
-                </div>
-                <!-- More achievements... -->
-            </div>
-
-            <div class="main-panel">
-                <div class="profile-header">
-                    <img id="avatar" class="profile-avatar">
-                    <div>
-                        <h1 id="name"></h1>
-                        <p id="bio"></p>
-                    </div>
-                </div>
-
-                <div class="stats-section">
-                    <div class="stat-item">
-                        <i class="fas fa-users"></i>
-                        <h3 id="followers"></h3>
-                        <p>Followers</p>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-star"></i>
-                        <h3 id="stars"></h3>
-                        <p>Stars</p>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-code-branch"></i>
-                        <h3 id="forks"></h3>
-                        <p>Forks</p>
-                    </div>
-                </div>
-
-                <h2><i class="fas fa-code"></i> Main Languages</h2>
-                <div class="language-grid" id="languages"></div>
-
-                <h2><i class="fas fa-bookmark"></i> Featured Projects</h2>
-                <div class="repo-grid" id="repos"></div>
-            </div>
-        </div>
+        # Server Monitoring
+        while true; do
+            echo "[$(date)] CPU: $(top -bn1 | grep load | awk '{printf "%.2f%%", $(NF-2)}')"
+            echo "[$(date)] MEM: $(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')"
+            sleep 5
+        done
     </div>
 
-    <div data-lang="fa">
-        <!-- محتوای فارسی -->
-        <div class="linux-code-bg">
-            <!-- همان کد بک‌گراند -->
+    <!-- Profile Container -->
+    <div class="profile-container">
+        <div class="achievements-sidebar">
+            <div class="achievement-item">
+                <div class="achievement-level">Lv.2</div>
+                <img src="https://github.githubassets.com/images/modules/profile/achievements/pull-shark-default.png" 
+                     class="achievement-image">
+                <div class="achievement-info">
+                    <h3 class="achievement-name">Pull Shark</h3>
+                </div>
+            </div>
+            
+            <div class="achievement-item">
+                <div class="achievement-level">Lv.2</div>
+                <img src="https://github.githubassets.com/images/modules/profile/achievements/pair-extraordinaire-default.png" 
+                     class="achievement-image">
+                <div class="achievement-info">
+                    <h3 class="achievement-name">Pair Extraordinaire</h3>
+                </div>
+            </div>
+
+            <div class="achievement-item">
+                <img src="https://github.githubassets.com/images/modules/profile/achievements/galaxy-brain-default.png" 
+                     class="achievement-image">
+                <div class="achievement-info">
+                    <h3 class="achievement-name">Galaxy Brain</h3>
+                </div>
+            </div>
+
+            <div class="achievement-item">
+                <img src="https://github.githubassets.com/images/modules/profile/achievements/yolo-default.png" 
+                     class="achievement-image">
+                <div class="achievement-info">
+                    <h3 class="achievement-name">YOLO</h3>
+                </div>
+            </div>
+
+            <div class="achievement-item">
+                <img src="https://github.githubassets.com/images/modules/profile/achievements/quickdraw-default.png" 
+                     class="achievement-image">
+                <div class="achievement-info">
+                    <h3 class="achievement-name">Quickdraw</h3>
+                </div>
+            </div>
         </div>
 
-        <div class="profile-container">
-            <div class="achievements-sidebar">
-                <!-- دستاوردها -->
+        <div class="main-panel">
+            <div class="profile-header">
+                <img id="avatar" class="profile-avatar">
+                <div>
+                    <h1 id="name"></h1>
+                    <p id="bio"></p>
+                </div>
             </div>
 
-            <div class="main-panel">
-                <div class="profile-header">
-                    <img id="avatar-fa" class="profile-avatar">
-                    <div>
-                        <h1 id="name-fa"></h1>
-                        <p id="bio-fa"></p>
-                    </div>
+            <div class="stats-section">
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <h3 id="followers"></h3>
+                    <p id="followersLabel">Followers</p>
                 </div>
-
-                <div class="stats-section">
-                    <div class="stat-item">
-                        <i class="fas fa-users"></i>
-                        <h3 id="followers-fa"></h3>
-                        <p>دنبال‌کنندگان</p>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-star"></i>
-                        <h3 id="stars-fa"></h3>
-                        <p>ستاره‌ها</p>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-code-branch"></i>
-                        <h3 id="forks-fa"></h3>
-                        <p>فورک‌ها</p>
-                    </div>
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <h3 id="stars"></h3>
+                    <p id="starsLabel">Stars</p>
                 </div>
-
-                <h2><i class="fas fa-code"></i> زبان‌های اصلی</h2>
-                <div class="language-grid" id="languages-fa"></div>
-
-                <h2><i class="fas fa-bookmark"></i> پروژه‌های برجسته</h2>
-                <div class="repo-grid" id="repos-fa"></div>
+                <div class="stat-item">
+                    <i class="fas fa-code-branch"></i>
+                    <h3 id="forks"></h3>
+                    <p id="forksLabel">Forks</p>
+                </div>
             </div>
+
+            <h2><i class="fas fa-code"></i> <span id="mainLanguages">Main Languages</span></h2>
+            <div class="language-grid" id="languages"></div>
+
+            <h2><i class="fas fa-bookmark"></i> <span id="featuredProjects">Featured Projects</span></h2>
+            <div class="repo-grid" id="repos"></div>
         </div>
     </div>
 
     <script>
-        // Language System
-        const langSwitcher = document.getElementById('langSwitcher');
+        // Language Configuration
+        const langTexts = {
+            title: {
+                en: "I'm Amirabolfazl!",
+                fa: "من امیرابوالفضلم!"
+            },
+            followersLabel: {
+                en: "Followers",
+                fa: "دنبال‌کنندگان"
+            },
+            starsLabel: {
+                en: "Stars",
+                fa: "ستاره‌ها"
+            },
+            forksLabel: {
+                en: "Forks",
+                fa: "فورک‌ها"
+            },
+            mainLanguages: {
+                en: "Main Languages",
+                fa: "زبان‌های اصلی"
+            },
+            featuredProjects: {
+                en: "Featured Projects",
+                fa: "پروژه‌های برجسته"
+            },
+            viewProject: {
+                en: "View Project",
+                fa: "مشاهده پروژه"
+            },
+            noDescription: {
+                en: "No description",
+                fa: "بدون توضیحات"
+            }
+        };
+
         let currentLang = 'en';
 
-        function switchLanguage(lang) {
-            document.body.style.animation = 'langSwitch 0.6s ease';
-            setTimeout(() => {
-                document.documentElement.lang = lang;
-                document.body.dir = lang === 'fa' ? 'rtl' : 'ltr';
-                currentLang = lang;
-                document.querySelectorAll('.lang-switcher span').forEach(span => {
-                    span.classList.remove('active');
-                    if(span.dataset.lang === lang) span.classList.add('active');
+        // Language Switcher Logic
+        const languageSwitcher = document.getElementById('languageSwitcher');
+        const langIcon = document.getElementById('langIcon');
+        const langText = document.getElementById('langText');
+        const html = document.documentElement;
+
+        function updateTexts() {
+            Object.keys(langTexts).forEach(key => {
+                const elements = document.querySelectorAll(`[id="${key}"]`);
+                elements.forEach(element => {
+                    element.textContent = langTexts[key][currentLang];
                 });
+            });
+            
+            document.title = langTexts.title[currentLang];
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'fa' : 'en';
+            html.lang = currentLang;
+            html.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
+            
+            langIcon.classList.add('lang-flip');
+            langIcon.className = `lang-icon fas fa-globe-${currentLang === 'en' ? 'asia' : 'americas'}`;
+            langText.textContent = currentLang === 'en' ? 'English' : 'فارسی';
+
+            setTimeout(() => {
+                updateTexts();
+                langIcon.classList.remove('lang-flip');
             }, 300);
         }
 
-        langSwitcher.addEventListener('click', () => {
-            switchLanguage(currentLang === 'en' ? 'fa' : 'en');
-        });
+        languageSwitcher.addEventListener('click', toggleLanguage);
 
-        // GitHub Integration
+        // GitHub Data Fetching
         const username = 'amirabolfazle';
-        
+        const languages = {};
+
         async function fetchGitHubData() {
             try {
                 const [userRes, reposRes] = await Promise.all([
@@ -430,18 +492,6 @@
                 const user = await userRes.json();
                 const repos = await reposRes.json();
 
-                // Update both language versions
-                ['', '-fa'].forEach(suffix => {
-                    document.getElementById(`avatar${suffix}`).src = user.avatar_url;
-                    document.getElementById(`name${suffix}`).textContent = user.name || username;
-                    document.getElementById(`bio${suffix}`).textContent = user.bio || '';
-                    document.getElementById(`followers${suffix}`).textContent = user.followers;
-                    document.getElementById(`stars${suffix}`).textContent = user.public_repos;
-                    document.getElementById(`forks${suffix}`).textContent = repos.reduce((acc, repo) => acc + repo.forks_count, 0);
-                });
-
-                // Process Languages
-                const languages = {};
                 const langPromises = repos.map(async repo => {
                     const langRes = await fetch(repo.languages_url);
                     const repoLangs = await langRes.json();
@@ -452,55 +502,58 @@
 
                 await Promise.all(langPromises);
 
-                // Update languages
-                ['', '-fa'].forEach(suffix => {
-                    const langGrid = document.getElementById(`languages${suffix}`);
-                    langGrid.innerHTML = '';
-                    Object.entries(languages)
-                        .sort((a, b) => b[1] - a[1])
-                        .slice(0, 5)
-                        .forEach(([lang, count]) => {
-                            const langItem = document.createElement('div');
-                            langItem.className = 'language-item';
-                            langItem.innerHTML = `
-                                <span class="language-name">${lang}</span>
-                                <span class="language-count">${count}</span>
-                            `;
-                            langGrid.appendChild(langItem);
-                        });
+                const langGrid = document.getElementById('languages');
+                const sortedLangs = Object.entries(languages)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5);
+
+                sortedLangs.forEach(([lang, count]) => {
+                    const langItem = document.createElement('div');
+                    langItem.className = 'language-item';
+                    langItem.innerHTML = `
+                        <span class="language-name">${lang}</span>
+                        <span class="language-count">${count}</span>
+                    `;
+                    langGrid.appendChild(langItem);
                 });
 
-                // Update Repositories
-                ['', '-fa'].forEach(suffix => {
-                    const reposContainer = document.getElementById(`repos${suffix}`);
-                    reposContainer.innerHTML = '';
-                    repos.sort((a, b) => b.stargazers_count - a.stargazers_count)
-                        .slice(0, 6)
-                        .forEach(repo => {
-                            const card = document.createElement('div');
-                            card.className = 'repo-card';
-                            card.innerHTML = `
-                                <h3>${repo.name}</h3>
-                                <p>${repo.description || (suffix ? 'No description' : 'بدون توضیحات')}</p>
-                                <div style="margin-top: 1rem;">
-                                    <i class="fas fa-star"></i> ${repo.stargazers_count} 
-                                    <i class="fas fa-code-branch"></i> ${repo.forks_count}
-                                </div>
-                                <a href="${repo.html_url}" target="_blank" 
-                                   style="color: var(--red); text-decoration: none; display: block; margin-top: 1rem;">
-                                   <i class="fas fa-external-link-alt"></i> ${suffix ? 'View Project' : 'مشاهده پروژه'}
-                                </a>
-                            `;
-                            reposContainer.appendChild(card);
-                        });
-                });
+                document.getElementById('avatar').src = user.avatar_url;
+                document.getElementById('name').textContent = user.name || username;
+                document.getElementById('bio').textContent = user.bio || '';
+                
+                document.getElementById('followers').textContent = user.followers;
+                document.getElementById('stars').textContent = user.public_repos;
+                document.getElementById('forks').textContent = repos.reduce((acc, repo) => acc + repo.forks_count, 0);
 
+                const reposContainer = document.getElementById('repos');
+                repos.sort((a, b) => b.stargazers_count - a.stargazers_count)
+                    .slice(0, 6)
+                    .forEach(repo => {
+                        const card = document.createElement('div');
+                        card.className = 'repo-card';
+                        card.innerHTML = `
+                            <h3>${repo.name}</h3>
+                            <p>${repo.description || langTexts.noDescription[currentLang]}</p>
+                            <div style="margin-top: 1rem;">
+                                <i class="fas fa-star"></i> ${repo.stargazers_count} 
+                                <i class="fas fa-code-branch"></i> ${repo.forks_count}
+                            </div>
+                            <a href="${repo.html_url}" target="_blank" 
+                               style="color: var(--red); text-decoration: none; display: block; margin-top: 1rem;">
+                               <i class="fas fa-external-link-alt"></i> 
+                               ${langTexts.viewProject[currentLang]}
+                            </a>
+                        `;
+                        reposContainer.appendChild(card);
+                    });
             } catch (err) {
                 console.error('Error:', err);
-                alert(currentLang === 'en' ? 'Error fetching data!' : 'خطا در دریافت اطلاعات!');
+                alert('Error fetching GitHub data!');
             }
         }
 
+        // Initialize
+        updateTexts();
         fetchGitHubData();
     </script>
 </body>
