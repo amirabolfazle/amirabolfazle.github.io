@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amirabolfazle - GitHub Portfolio</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
+    <style>
+        :root {
+            --red: #ff0000;
+            --black: #000000;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(45deg, var(--black), var(--red));
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .background-text {
+            position: fixed;
+            font-size: 15vw;
+            opacity: 0.1;
+            transform: rotateX(45deg) rotateZ(45deg);
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: -1;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotateX(45deg) rotateZ(45deg); }
+            50% { transform: translateY(-50%) rotateX(45deg) rotateZ(45deg); }
+            100% { transform: translateY(0) rotateX(45deg) rotateZ(45deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--red);
+            transition: transform 0.3s;
+        }
+
+        .repos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .repo-card {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .repo-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, var(--red), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateX(-200%); }
+            100% { transform: rotate(45deg) translateX(200%); }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-text">Amirabolfazle</div>
+    
+    <div class="container">
+        <div class="profile" data-aos="fade-right">
+            <img src="" alt="Avatar" class="avatar hvr-bob" id="avatar">
+            <div>
+                <h1 id="name"></h1>
+                <p id="bio"></p>
+                <div id="stats"></div>
+            </div>
+        </div>
+
+        <h2 data-aos="fade-up">پروژه‌های منتخب</h2>
+        <div class="repos-grid" id="repos"></div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: false
+        });
+
+        // GitHub API
+        const username = 'amirabolfazle';
+        
+        async function fetchGitHub() {
+            const userRes = await fetch(`https://api.github.com/users/${username}`);
+            const user = await userRes.json();
+            
+            const reposRes = await fetch(`https://api.github.com/users/${username}/repos?sort=updated`);
+            const repos = await reposRes.json();
+
+            // Populate profile
+            document.getElementById('avatar').src = user.avatar_url;
+            document.getElementById('name').textContent = user.name || username;
+            document.getElementById('bio').textContent = user.bio || 'GitHub Portfolio';
+            document.getElementById('stats').innerHTML = `
+                Followers: ${user.followers} •
+                Following: ${user.following} •
+                Repos: ${user.public_repos}
+            `;
+
+            // Populate repos (pinned first)
+            const pinnedRepos = repos.filter(r => r.topics.includes('pinned'));
+            const container = document.getElementById('repos');
+            
+            pinnedRepos.slice(0, 6).forEach(repo => {
+                const card = document.createElement('div');
+                card.className = 'repo-card hvr-float';
+                card.innerHTML = `
+                    <h3>${repo.name}</h3>
+                    <p>${repo.description || 'No description'}</p>
+                    <small>${repo.language} • Stars: ${repo.stargazers_count}</small>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        fetchGitHub();
+
+        // 3D Background Text
+        // (Three.js implementation here...)
+    </script>
+</body>
+</html>
