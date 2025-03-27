@@ -3,11 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amirabolfazle | Portfolio</title>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kan:wght@400;700&display=swap" rel="stylesheet">
+    <title>Amirabolfazle | رزومه حرفه‌ای</title>
+    <link rel="shortcut icon" href="https://github.githubassets.com/favicons/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        /* فونت ایموجی ویندوز 11 */
+        @font-face {
+            font-family: 'Segoe UI Emoji';
+            src: local('Segoe UI Emoji'),
+                 url('https://cdn.jsdelivr.net/npm/@fontsource/segoe-ui-emoji@1.1.1/files/segoe-ui-emoji-latin-ext-400-normal.woff2') format('woff2');
+        }
+
         :root {
             --red: #ff2a2a;
             --black: #0a0a0a;
@@ -16,41 +22,15 @@
 
         body {
             margin: 0;
-            font-family: 'Kan', sans-serif;
+            font-family: 'Segoe UI', system-ui;
             background: linear-gradient(325deg, var(--black) 60%, var(--red));
             min-height: 100vh;
             color: white;
             overflow-x: hidden;
         }
 
-        .centered-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Shadow Box برای اطلاعات پروفایل */
-        .profile-box {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
-            margin: 2rem 0;
-            width: 80%;
-            position: relative;
-            transition: transform 0.3s;
-        }
-
-        .profile-box:hover {
-            transform: translateY(-5px);
-        }
-
-        /* استایل سه بعدی برای متن بکگراند */
-        .3d-background {
+        /* متن سه بعدی پیشرفته */
+        .3d-text {
             position: fixed;
             font-size: 15vw;
             color: rgba(255, 255, 255, 0.05);
@@ -58,8 +38,10 @@
             pointer-events: none;
             z-index: -1;
             animation: float 20s infinite linear;
-            font-family: 'Kan', sans-serif;
-            white-space: nowrap;
+            text-shadow: 
+                5px 5px 10px rgba(255,42,42,0.2),
+                -5px -5px 10px rgba(0,0,0,0.3);
+            font-family: 'Segoe UI Emoji', system-ui;
         }
 
         @keyframes float {
@@ -68,25 +50,70 @@
             100% { transform: perspective(1000px) rotateX(60deg) rotateZ(45deg) translateY(0); }
         }
 
-        /* استایل ریپازیتوری‌ها */
-        .repo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            width: 100%;
+        /* استایل کارت‌ها */
+        .card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--red);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem auto;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: var(--shadow);
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
         }
 
-        .repo-card {
-            background: linear-gradient(145deg, rgba(255, 42, 42, 0.1), rgba(0, 0, 0, 0.3));
+        .card:hover {
+            transform: translateY(-5px) rotateZ(0.5deg);
+        }
+
+        /* استایل دستاوردها */
+        .achievement {
+            display: inline-block;
+            background: rgba(255,42,42,0.1);
+            padding: 1rem;
+            margin: 0.5rem;
+            border-radius: 10px;
             border: 1px solid var(--red);
-            padding: 1.5rem;
-            border-radius: 15px;
-            transition: 0.3s;
             position: relative;
             overflow: hidden;
         }
 
-        .repo-card::before {
+        /* انیمیشن‌های سفارشی */
+        @keyframes hvr-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .hvr-pulse {
+            animation: hvr-pulse 1.5s infinite;
+        }
+
+        /* استایل آیکون‌ها */
+        .fa-custom {
+            font-size: 1.2em;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+            color: var(--red);
+        }
+
+        /* استایل ریپازیتوری‌ها */
+        .repo-item {
+            padding: 1.5rem;
+            margin: 1rem 0;
+            background: rgba(0,0,0,0.4);
+            border-radius: 10px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .repo-item:hover {
+            background: rgba(255,42,42,0.1);
+        }
+
+        .repo-item::before {
             content: '';
             position: absolute;
             top: 0;
@@ -96,159 +123,153 @@
             background: linear-gradient(
                 90deg,
                 transparent,
-                rgba(255, 42, 42, 0.2),
+                rgba(255,42,42,0.2),
                 transparent
             );
             transition: 0.5s;
         }
 
-        .repo-card:hover::before {
+        .repo-item:hover::before {
             left: 100%;
-        }
-
-        /* استایل برای دستاوردها و لوگوها */
-        .achievements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-            width: 100%;
-            margin: 3rem 0;
-        }
-
-        .achievement-item {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transition: 0.5s;
-        }
-
-        .achievement-item:hover {
-            transform: rotateY(15deg) rotateX(15deg);
-        }
-
-        .achievement-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 15px;
-        }
-
-        /* ایموجی‌های سه بعدی ویندوز 11 */
-        .fluent-emoji {
-            font-family: 'Segoe UI Emoji', 'Segoe UI Symbol';
-            font-size: 1.5em;
-            vertical-align: middle;
         }
     </style>
 </head>
 <body>
-    <div class="3d-background">Amirabolfazle</div>
+    <div class="3d-text">Amirabolfazle</div>
 
-    <div class="centered-container">
+    <div style="text-align: center; padding: 2rem;">
         <!-- بخش پروفایل -->
-        <div class="profile-box" data-aos="zoom-in">
-            <div class="profile-content">
-                <img src="" alt="Avatar" class="avatar hvr-bob" id="avatar" 
-                     style="width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--red);">
-                <h1 id="name" style="margin: 1rem 0;"></h1>
-                <p id="bio" class="hvr-forward"></p>
-                <div id="stats" class="hvr-glow"></div>
-            </div>
+        <div class="card">
+            <img id="avatar" style="width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--red);">
+            <h1 id="name" style="margin: 1rem 0;"></h1>
+            <p id="bio"></p>
+            <div id="stats"></div>
+        </div>
+
+        <!-- بخش دستاوردها -->
+        <div class="card">
+            <h2><i class="fas fa-trophy fa-custom"></i>دستاوردهای گیتهاب</h2>
+            <div id="achievements"></div>
         </div>
 
         <!-- بخش ریپازیتوری‌ها -->
-        <h2 data-aos="fade-up">🔼 ریپازیتوری‌های پین شده <span class="fluent-emoji">📌</span></h2>
-        <div class="repo-grid" id="pinned-repos"></div>
+        <div class="card">
+            <h2><i class="fas fa-thumbtack fa-custom"></i>ریپازیتوری‌های پین شده</h2>
+            <div id="pinned-repos"></div>
+        </div>
 
-        <h2 data-aos="fade-up">🔼 جدیدترین پروژه‌ها <span class="fluent-emoji">🚀</span></h2>
-        <div class="repo-grid" id="recent-repos"></div>
-
-        <!-- بخش دستاوردها -->
-        <h2 data-aos="fade-up">🔼 دستاوردها <span class="fluent-emoji">🏆</span></h2>
-        <div class="achievements-grid" id="achievements"></div>
+        <!-- بخش مهارت‌ها -->
+        <div class="card">
+            <h2><i class="fas fa-code fa-custom"></i>مهارت‌های فنی</h2>
+            <div id="skills"></div>
+        </div>
     </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 1000,
-            once: false,
-            mirror: true
-        });
-
         const username = 'amirabolfazle';
-        const achievements = [
-            {img: 'certificate1.jpg', title: 'برنده مسابقه کد نویسی'},
-            {img: 'company-logo1.png', title: 'همکاری با مایکروسافت'},
-            // اضافه کردن تصاویر دیگر
-        ];
+        const iconMap = {
+            stars: '<i class="fas fa-star"></i>',
+            forks: '<i class="fas fa-code-branch"></i>',
+            issues: '<i class="fas fa-bug"></i>',
+            followers: '<i class="fas fa-users"></i>',
+            repos: '<i class="fas fa-folder-open"></i>'
+        };
 
-        async function fetchGitHub() {
-            const [userRes, reposRes] = await Promise.all([
+        async function fetchGitHubData() {
+            const [userRes, reposRes, achievementsRes] = await Promise.all([
                 fetch(`https://api.github.com/users/${username}`),
-                fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
+                fetch(`https://api.github.com/users/${username}/repos`),
+                fetch(`https://api.github.com/users/${username}/achievements`)
             ]);
 
             const user = await userRes.json();
             const repos = await reposRes.json();
+            const achievements = await achievementsRes.json();
 
             // پروفایل
+            document.getElementById('avatar').src = user.avatar_url;
             document.getElementById('name').innerHTML = `
-                ${user.name} <span class="fluent-emoji">💻</span>
+                ${user.name} 
+                <span class="hvr-pulse" style="color: var(--red)">
+                    <i class="fas fa-laptop-code"></i>
+                </span>
             `;
             document.getElementById('bio').textContent = user.bio;
             document.getElementById('stats').innerHTML = `
-                <span class="fluent-emoji">👥</span> دنبال‌کنندگان: ${user.followers} |
-                <span class="fluent-emoji">⭐</span> ستاره‌ها: ${user.public_repos} |
-                <span class="fluent-emoji">📂</span> ریپازیتوری‌ها: ${user.public_repos}
+                ${iconMap.followers} دنبال‌کنندگان: ${user.followers} | 
+                ${iconMap.stars} ستاره‌ها: ${user.public_repos} | 
+                ${iconMap.repos} ریپازیتوری‌ها: ${user.public_repos}
             `;
 
-            // ریپازیتوری‌های پین شده
-            const pinnedRepos = repos.filter(r => r.topics.includes('pinned'));
-            const pinnedContainer = document.getElementById('pinned-repos');
-            pinnedRepos.slice(0, 4).forEach(repo => createRepoCard(repo, pinnedContainer));
-
-            // جدیدترین ریپازیتوری‌ها
-            const recentRepos = repos.sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at));
-            const recentContainer = document.getElementById('recent-repos');
-            recentRepos.slice(0, 6).forEach(repo => createRepoCard(repo, recentContainer));
-
-            // نمایش دستاوردها
+            // دستاوردها
             const achievementsContainer = document.getElementById('achievements');
-            achievements.forEach(ach => {
+            achievements.achievements.forEach(ach => {
                 const div = document.createElement('div');
-                div.className = 'achievement-item hvr-glow';
+                div.className = 'achievement hvr-pulse';
                 div.innerHTML = `
-                    <img src="${ach.img}" alt="${ach.title}">
-                    <div style="position: absolute; bottom: 0; background: rgba(0,0,0,0.7); width: 100%; padding: 1rem;">
-                        <h4>${ach.title}</h4>
-                    </div>
+                    <i class="fas fa-medal" style="color: #ffd700; font-size: 2em"></i>
+                    <h3>${ach.title}</h3>
+                    <p>${ach.description}</p>
                 `;
                 achievementsContainer.appendChild(div);
             });
+
+            // ریپازیتوری‌های پین شده
+            const pinnedRepos = repos.filter(repo => repo.topics.includes('pinned'));
+            const reposContainer = document.getElementById('pinned-repos');
+            pinnedRepos.forEach(repo => {
+                const repoDiv = document.createElement('div');
+                repoDiv.className = 'repo-item';
+                repoDiv.innerHTML = `
+                    <h3>
+                        ${repo.name} 
+                        <a href="${repo.html_url}" target="_blank" style="color: var(--red)">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </h3>
+                    <p>${repo.description || 'بدون توضیحات'}</p>
+                    <div>
+                        ${iconMap.forks} ${repo.forks_count} | 
+                        ${iconMap.issues} ${repo.open_issues} | 
+                        ${iconMap.stars} ${repo.stargazers_count}
+                    </div>
+                `;
+                reposContainer.appendChild(repoDiv);
+            });
+
+            // مهارت‌ها
+            const skillsContainer = document.getElementById('skills');
+            const languages = repos.reduce((acc, repo) => {
+                if(repo.language) acc.add(repo.language);
+                return acc;
+            }, new Set());
+
+            [...languages].forEach(lang => {
+                const skill = document.createElement('div');
+                skill.className = 'achievement';
+                skill.innerHTML = `
+                    <i class="fas fa-code"></i>
+                    <span>${lang}</span>
+                `;
+                skillsContainer.appendChild(skill);
+            });
         }
 
-        function createRepoCard(repo, container) {
-            const card = document.createElement('div');
-            card.className = 'repo-card hvr-float';
-            card.innerHTML = `
-                <h3><span class="fluent-emoji">📁</span> ${repo.name}</h3>
-                <p>${repo.description || 'بدون توضیحات'}</p>
-                <div style="margin-top: 1rem;">
-                    <span class="fluent-emoji">🌐</span> ${repo.language || 'نا مشخص'} 
-                    <span class="fluent-emoji" style="margin-left: 1rem;">⭐</span> ${repo.stargazers_count}
-                    <a href="${repo.html_url}" target="_blank" 
-                       style="float: left; color: var(--red); text-decoration: none;" 
-                       class="hvr-icon-forward">
-                       مشاهده پروژه <span class="hvr-icon">→</span>
-                    </a>
-                </div>
+        // انیمیشن متن سه بعدی
+        const text3D = document.querySelector('.3d-text');
+        let rotation = 0;
+        setInterval(() => {
+            rotation += 0.5;
+            text3D.style.transform = `
+                perspective(1000px) 
+                rotateX(${Math.sin(rotation * 0.02) * 30 + 60}deg) 
+                rotateZ(${rotation}deg)
+                translateY(${Math.sin(rotation * 0.1) * 20}px)
             `;
-            container.appendChild(card);
-        }
+        }, 50);
 
-        fetchGitHub();
+        // راه‌اندازی اولیه
+        fetchGitHubData().catch(err => console.error('خطا:', err));
     </script>
 </body>
 </html>
