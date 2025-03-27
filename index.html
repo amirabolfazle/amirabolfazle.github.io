@@ -485,8 +485,8 @@
         async function fetchGitHubData() {
             try {
                 const [userRes, reposRes] = await Promise.all([
-                    fetch(`https://api.github.com/users/amirabolfazle`),
-                    fetch(`https://api.github.com/users/amirabolfazle/repos`)
+                    fetch(`https://api.github.com/users/${username}`),
+                    fetch(`https://api.github.com/users/${username}/repos`)
                 ]);
 
                 const user = await userRes.json();
