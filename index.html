@@ -22,7 +22,7 @@
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', system-ui;
+            font-family: 'Courier New', monospace;
             background: var(--gradient);
             background-size: 400% 400%;
             animation: gradient-animation 15s ease infinite;
@@ -31,50 +31,75 @@
             overflow-x: hidden;
         }
 
+        /* پس‌زمینه کدهای لینوکس */
+        .linux-code-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            z-index: -1;
+            white-space: pre;
+            font-size: 14px;
+            color: var(--red);
+            pointer-events: none;
+            animation: scroll-code 120s linear infinite;
+            padding: 2rem;
+        }
+
+        @keyframes scroll-code {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100%); }
+        }
+
         .profile-container {
             display: flex;
             max-width: 1200px;
             margin: 2rem auto;
             padding: 2rem;
             gap: 3rem;
+            position: relative;
         }
 
-        /* استایل دستاوردهای سمت چپ */
+        /* استایل دستاوردهای هم اندازه پروفایل */
         .achievements-sidebar {
-            width: 250px;
-            position: relative;
-            padding: 1rem;
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
         }
 
         .achievement-item {
+            width: 150px;
+            height: 150px;
             position: relative;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+            border-radius: 50%;
+            border: 3px solid var(--red);
+            overflow: hidden;
         }
 
         .achievement-image {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 2px solid var(--red);
+            padding: 10px;
         }
 
         .achievement-level {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
             background: var(--bronze);
             color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
             font-size: 0.9rem;
-            position: absolute;
-            left: 40px;
-            top: -10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
-        /* استایل بخش اصلی پروفایل */
+        /* بخش اصلی پروفایل */
         .profile-main {
             flex: 1;
             background: rgba(0, 0, 0, 0.8);
@@ -82,7 +107,7 @@
             border-radius: 20px;
             padding: 2rem;
             box-shadow: 0 0 50px rgba(255,42,42,0.2);
-            position: relative;
+            backdrop-filter: blur(10px);
         }
 
         .profile-header {
@@ -97,6 +122,7 @@
             height: 150px;
             border-radius: 50%;
             border: 3px solid var(--red);
+            object-fit: cover;
         }
 
         /* استایل زبان‌ها و ریپازیتوری‌ها */
@@ -107,6 +133,8 @@
             margin: 0.5rem;
             border-radius: 20px;
             border: 1px solid var(--red);
+            position: relative;
+            overflow: hidden;
         }
 
         .repo-grid {
@@ -131,37 +159,50 @@
     </style>
 </head>
 <body>
+    <!-- پس‌زمینه کدهای لینوکس -->
+    <div class="linux-code-bg">
+        #!/bin/bash
+        # Automation Script
+        echo "🚀 Starting deployment..."
+        git pull origin main
+        npm install
+        npm run build
+        systemctl restart nginx
+        echo "✅ Deployment completed!"
+        
+        # Server Monitoring
+        while true; do
+            CPU=$(top -bn1 | grep load | awk '{printf "%.2f%%\t\t\n", $(NF-2)}')
+            MEM=$(free -m | awk 'NR==2{printf "%.2f%%\t\t", $3*100/$2 }')
+            echo "📊 Stats | CPU: $CPU | MEM: $MEM"
+            sleep 5
+        done
+
+        # Docker Setup
+        docker-compose up -d
+        docker ps -a
+        echo "🐳 Docker containers running!"
+    </div>
+
     <div class="profile-container">
         <!-- سایدبار دستاوردها -->
         <div class="achievements-sidebar">
             <div class="achievement-item">
-                <div class="achievement-level">Lv.2</div>
                 <img src="https://github.githubassets.com/images/modules/profile/achievements/pull-shark-default.png" 
                      class="achievement-image">
+                <div class="achievement-level">Lv.2</div>
             </div>
 
             <div class="achievement-item">
-                <div class="achievement-level">Lv.2</div>
                 <img src="https://github.githubassets.com/images/modules/profile/achievements/pair-extraordinaire-default.png" 
                      class="achievement-image">
+                <div class="achievement-level">Lv.2</div>
             </div>
 
             <div class="achievement-item">
-                <div class="achievement-level">Lv.1</div>
                 <img src="https://github.githubassets.com/images/modules/profile/achievements/galaxy-brain-default.png" 
                      class="achievement-image">
-            </div>
-
-            <div class="achievement-item">
                 <div class="achievement-level">Lv.1</div>
-                <img src="https://github.githubassets.com/images/modules/profile/achievements/yolo-default.png" 
-                     class="achievement-image">
-            </div>
-
-            <div class="achievement-item">
-                <div class="achievement-level">Lv.1</div>
-                <img src="https://github.githubassets.com/images/modules/profile/achievements/quickdraw-default.png" 
-                     class="achievement-image">
             </div>
         </div>
 
@@ -206,7 +247,6 @@
             const user = await userRes.json();
             const repos = await reposRes.json();
 
-            // پر کردن اطلاعات پروفایل
             document.getElementById('avatar').src = user.avatar_url;
             document.getElementById('name').textContent = user.name || username;
             document.getElementById('bio').textContent = user.bio || '';
@@ -216,7 +256,6 @@
                 ${iconMap.fork} فورک‌ها: ${repos.reduce((a, r) => a + r.forks_count, 0)}
             `;
 
-            // نمایش زبان‌ها
             const languages = repos.reduce((acc, repo) => {
                 if(repo.language) acc.add(repo.language);
                 return acc;
@@ -230,7 +269,6 @@
                 languagesContainer.appendChild(chip);
             });
 
-            // نمایش ریپازیتوری‌ها
             const reposContainer = document.getElementById('repos');
             repos.sort((a, b) => b.stargazers_count - a.stargazers_count)
                 .slice(0, 6)
