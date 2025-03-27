@@ -31,82 +31,27 @@
             overflow-x: hidden;
         }
 
-        .matrix-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.1;
-            z-index: -1;
-            font-family: 'Courier New', monospace;
-            font-size: 24px;
-            color: var(--red);
-            pointer-events: none;
-            animation: matrix 20s linear infinite;
-            white-space: pre;
-        }
-
-        @keyframes matrix {
-            from { transform: translateY(100%); }
-            to { transform: translateY(-100%); }
-        }
-
         .profile-container {
-            position: relative;
-            max-width: 800px;
+            display: flex;
+            max-width: 1200px;
             margin: 2rem auto;
             padding: 2rem;
+            gap: 3rem;
         }
 
-        .profile-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid var(--red);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 0 50px rgba(255,42,42,0.2);
+        /* استایل دستاوردهای سمت چپ */
+        .achievements-sidebar {
+            width: 250px;
             position: relative;
-            overflow: hidden;
+            padding: 1rem;
         }
 
-        .profile-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, var(--red), transparent);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: rotate(45deg) translateX(-200%); }
-            100% { transform: rotate(45deg) translateX(200%); }
-        }
-
-        .achievement-badge {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 2px solid var(--red);
+        .achievement-item {
+            position: relative;
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            animation: orbit 20s linear infinite;
-            transform-origin: 120px;
-            transition: 0.3s;
-            cursor: pointer;
-            background: rgba(0,0,0,0.5);
-            z-index: 2;
-        }
-
-        .achievement-badge[data-achievement="pull-shark"],
-        .achievement-badge[data-achievement="pair-extraordinaire"] {
-            background: var(--bronze);
-            border-color: var(--bronze);
-            box-shadow: 0 0 15px var(--bronze);
+            gap: 1rem;
         }
 
         .achievement-image {
@@ -114,22 +59,47 @@
             height: 60px;
             border-radius: 50%;
             object-fit: cover;
-            filter: brightness(1.2);
+            border: 2px solid var(--red);
+        }
+
+        .achievement-level {
+            background: var(--bronze);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            position: absolute;
+            left: 40px;
+            top: -10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* استایل بخش اصلی پروفایل */
+        .profile-main {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--red);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 0 50px rgba(255,42,42,0.2);
+            position: relative;
         }
 
         .profile-header {
-            position: relative;
-            z-index: 1;
             display: flex;
-            gap: 2rem;
             align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        @keyframes orbit {
-            0% { transform: rotate(0deg) translateX(120px) rotate(0deg); }
-            100% { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--red);
         }
 
+        /* استایل زبان‌ها و ریپازیتوری‌ها */
         .language-chip {
             display: inline-block;
             background: rgba(255,42,42,0.1);
@@ -137,24 +107,6 @@
             margin: 0.5rem;
             border-radius: 20px;
             border: 1px solid var(--red);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .language-chip::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,42,42,0.3),
-                transparent
-            );
-            animation: shine 1.5s infinite;
         }
 
         .repo-grid {
@@ -170,7 +122,6 @@
             border-radius: 15px;
             padding: 1.5rem;
             transition: 0.3s;
-            position: relative;
         }
 
         .repo-card:hover {
@@ -180,54 +131,56 @@
     </style>
 </head>
 <body>
-    <div class="matrix-bg" id="matrix"></div>
-
     <div class="profile-container">
-        <div class="profile-card">
-            <!-- دستاوردهای جلوی پروفایل -->
-            <div class="achievement-badge" data-achievement="pull-shark" style="animation-delay: 0s">
+        <!-- سایدبار دستاوردها -->
+        <div class="achievements-sidebar">
+            <div class="achievement-item">
+                <div class="achievement-level">Lv.2</div>
                 <img src="https://github.githubassets.com/images/modules/profile/achievements/pull-shark-default.png" 
-                     alt="Pull Shark" class="achievement-image">
+                     class="achievement-image">
             </div>
 
-            <div class="achievement-badge" data-achievement="pair-extraordinaire" style="animation-delay: 3s">
+            <div class="achievement-item">
+                <div class="achievement-level">Lv.2</div>
                 <img src="https://github.githubassets.com/images/modules/profile/achievements/pair-extraordinaire-default.png" 
-                     alt="Pair Extraordinaire" class="achievement-image">
+                     class="achievement-image">
             </div>
 
-            <!-- بقیه دستاوردها -->
-            <div class="achievement-badge" data-achievement="galaxy-brain" style="animation-delay: 6s">
+            <div class="achievement-item">
+                <div class="achievement-level">Lv.1</div>
                 <img src="https://github.githubassets.com/images/modules/profile/achievements/galaxy-brain-default.png" 
-                     alt="Galaxy Brain" class="achievement-image">
+                     class="achievement-image">
             </div>
 
-            <div class="achievement-badge" data-achievement="yolo" style="animation-delay: 9s">
+            <div class="achievement-item">
+                <div class="achievement-level">Lv.1</div>
                 <img src="https://github.githubassets.com/images/modules/profile/achievements/yolo-default.png" 
-                     alt="YOLO" class="achievement-image">
+                     class="achievement-image">
             </div>
 
-            <div class="achievement-badge" data-achievement="quickdraw" style="animation-delay: 12s">
+            <div class="achievement-item">
+                <div class="achievement-level">Lv.1</div>
                 <img src="https://github.githubassets.com/images/modules/profile/achievements/quickdraw-default.png" 
-                     alt="Quickdraw" class="achievement-image">
+                     class="achievement-image">
             </div>
+        </div>
 
-            <!-- بخش پروفایل -->
+        <!-- بخش اصلی پروفایل -->
+        <div class="profile-main">
             <div class="profile-header">
-                <img id="avatar" style="width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--red); z-index: 1;">
+                <img id="avatar" class="profile-avatar">
                 <div class="profile-info">
-                    <h1 id="name"><i class="fas fa-user"></i></h1>
-                    <p id="bio"><i class="fas fa-quote-left"></i></p>
+                    <h1 id="name"></h1>
+                    <p id="bio"></p>
                     <div id="stats"></div>
                 </div>
             </div>
 
-            <!-- زبان‌های پرکاربرد -->
             <div class="languages-section">
                 <h2><i class="fas fa-code"></i> زبان‌های اصلی</h2>
                 <div id="languages"></div>
             </div>
 
-            <!-- ریپازیتوری‌ها -->
             <div class="repos-section">
                 <h2><i class="fas fa-bookmark"></i> پروژه‌های برجسته</h2>
                 <div class="repo-grid" id="repos"></div>
@@ -241,20 +194,8 @@
             star: '<i class="fas fa-star"></i>',
             fork: '<i class="fas fa-code-branch"></i>',
             eye: '<i class="fas fa-eye"></i>',
-            code: '<i class="fas fa-code"></i>',
-            trophy: '<i class="fas fa-trophy"></i>'
+            code: '<i class="fas fa-code"></i>'
         };
-
-        function generateMatrix() {
-            const chars = '01Amirabolfazle@Github';
-            const matrix = document.getElementById('matrix');
-            let content = '';
-            
-            for(let i = 0; i < 500; i++) {
-                content += chars[Math.floor(Math.random() * chars.length)] + ' ';
-            }
-            matrix.textContent = content.repeat(20);
-        }
 
         async function fetchGitHubData() {
             const [userRes, reposRes] = await Promise.all([
@@ -265,33 +206,31 @@
             const user = await userRes.json();
             const repos = await reposRes.json();
 
+            // پر کردن اطلاعات پروفایل
             document.getElementById('avatar').src = user.avatar_url;
-            document.getElementById('name').innerHTML = `
-                ${user.name} <span style="color: var(--red)">${iconMap.code}</span>
-            `;
-            document.getElementById('bio').textContent = user.bio;
+            document.getElementById('name').textContent = user.name || username;
+            document.getElementById('bio').textContent = user.bio || '';
             document.getElementById('stats').innerHTML = `
                 ${iconMap.eye} دنبال‌کنندگان: ${user.followers} | 
                 ${iconMap.star} ستاره‌ها: ${user.public_repos} | 
                 ${iconMap.fork} فورک‌ها: ${repos.reduce((a, r) => a + r.forks_count, 0)}
             `;
 
+            // نمایش زبان‌ها
             const languages = repos.reduce((acc, repo) => {
-                if(repo.language) acc[repo.language] = (acc[repo.language] || 0) + 1;
+                if(repo.language) acc.add(repo.language);
                 return acc;
-            }, {});
+            }, new Set());
 
             const languagesContainer = document.getElementById('languages');
-            Object.entries(languages).forEach(([lang, count]) => {
+            [...languages].forEach(lang => {
                 const chip = document.createElement('div');
                 chip.className = 'language-chip';
-                chip.innerHTML = `
-                    ${iconMap.code} ${lang} 
-                    <span style="color: var(--red)">(${count})</span>
-                `;
+                chip.textContent = lang;
                 languagesContainer.appendChild(chip);
             });
 
+            // نمایش ریپازیتوری‌ها
             const reposContainer = document.getElementById('repos');
             repos.sort((a, b) => b.stargazers_count - a.stargazers_count)
                 .slice(0, 6)
@@ -299,7 +238,7 @@
                     const card = document.createElement('div');
                     card.className = 'repo-card';
                     card.innerHTML = `
-                        <h3>${iconMap.code} ${repo.name}</h3>
+                        <h3>${repo.name}</h3>
                         <p>${repo.description || 'بدون توضیحات'}</p>
                         <div style="margin-top: 1rem;">
                             ${iconMap.star} ${repo.stargazers_count} 
@@ -314,25 +253,7 @@
                 });
         }
 
-        function setupAchievements() {
-            const achievements = document.querySelectorAll('.achievement-badge');
-            achievements.forEach((badge, index) => {
-                badge.style.setProperty('--i', index);
-                badge.addEventListener('mouseenter', () => {
-                    badge.style.transform = 'scale(1.3)';
-                });
-                badge.addEventListener('mouseleave', () => {
-                    badge.style.transform = 'scale(1)';
-                });
-            });
-        }
-
-        generateMatrix();
-        fetchGitHubData()
-            .then(() => {
-                setupAchievements();
-            })
-            .catch(err => console.error('Error:', err));
+        fetchGitHubData().catch(err => console.error('خطا:', err));
     </script>
 </body>
 </html>
